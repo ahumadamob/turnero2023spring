@@ -1,12 +1,14 @@
 package imb3.turnero.entity;
 
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Turno {
@@ -15,15 +17,15 @@ public class Turno {
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		private Integer idTurno;
 		private Integer numeroTurno;
-		@NotBlank(message = "La fecha no puede estar vacía")
-		@Size(max = 10, message = "La fecha no debe superar los 10 caracteres") 
-		private String fecha;
-		@NotBlank(message = "La hora no puede estar vacía")
-		@Size(max = 5, message = "La hora no debe superar los 5 caracteres") 
-		private String hora;
+		@NotNull(message = "La fecha y hora no pueden estar vacías.")
+		@Future(message = "La fecha y hora ingresadas ya sucedieron.")
+		private LocalDateTime fechaYHora;
+		@NotNull(message = "El id del paciente no puede estar vacío.")
+		@Min(value=1, message="El id del paciente debe ser mayor que 1.")
 		private Integer idPaciente;
 		private Integer idSalas;
 		private Integer idProfesional;
+		
 		public Integer getIdTurno() {
 			return idTurno;
 		}
@@ -36,17 +38,11 @@ public class Turno {
 		public void setNumeroTurno(Integer numeroTurno) {
 			this.numeroTurno = numeroTurno;
 		}
-		public String getFecha() {
-			return fecha;
+		public LocalDateTime getFechaYHora() {
+			return fechaYHora;
 		}
-		public void setFecha(String fecha) {
-			this.fecha = fecha;
-		}
-		public String getHora() {
-			return hora;
-		}
-		public void setHora(String hora) {
-			this.hora = hora;
+		public void setFechaYHora(LocalDateTime fechaYHora) {
+			this.fechaYHora = fechaYHora;
 		}
 		public Integer getIdPaciente() {
 			return idPaciente;
