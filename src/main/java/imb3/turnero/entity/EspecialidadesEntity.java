@@ -15,7 +15,7 @@ public class EspecialidadesEntity {
 	private Integer idEspecialidad;
 	@NotBlank(message = "El nombre de la especialidad no puede estar vacío")
 	@Size(max = 40, message = "El nombre de la especialidad no debe superar los 40 caracteres")
-	private String nombreEspecialidad;
+	private String nombre;
 	
 	public Integer getIdEspecialidad() {
 		return idEspecialidad;
@@ -23,11 +23,11 @@ public class EspecialidadesEntity {
 	public void setIdEspecialidad(Integer idEspecialidad) {
 		this.idEspecialidad = idEspecialidad;
 	}
-	public String getNombreEspecialidad() {
-		return nombreEspecialidad;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setNombreEspecialidad(String nombreEspecialidad) {
-		this.nombreEspecialidad = nombreEspecialidad;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 }
