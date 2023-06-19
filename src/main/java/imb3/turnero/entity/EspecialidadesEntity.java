@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-public class TipoEspecialidad {
+public class EspecialidadesEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
