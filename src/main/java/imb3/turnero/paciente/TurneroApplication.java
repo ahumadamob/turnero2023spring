@@ -1,4 +1,4 @@
-package imb3.turnero;
+package imb3.turnero.paciente;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
