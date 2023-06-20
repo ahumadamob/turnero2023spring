@@ -37,4 +37,3 @@ public class APIResponse<T> {
         this.data = data;
     }
 }
-
