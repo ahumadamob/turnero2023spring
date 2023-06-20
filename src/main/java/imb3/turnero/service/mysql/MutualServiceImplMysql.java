@@ -25,8 +25,7 @@ public class MutualServiceImplMysql implements IMutualService {
 
 	@Override
 	public Mutual buscarMutualPorId(Integer idMutual) {
-		Optional<Mutual> optional;
-		optional = repo.findById(idMutual);
+		Optional<Mutual> optional = repo.findById(idMutual);
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {

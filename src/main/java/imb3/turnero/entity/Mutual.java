@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -12,7 +13,8 @@ public class Mutual {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idMutual;
-	@Size(max = 60, message = "El nombre de la mutual no debe exceder los 60 caracteres.")
+	@NotBlank(message = "El nombre de la mutual no puede estar vacío.")
+	@Size(max = 100, message = "El nombre de la mutual no debe exceder los 100 caracteres.")
 	private String nombreMutual;
 	private String beneficios;
 	

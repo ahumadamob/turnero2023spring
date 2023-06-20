@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import imb3.turnero.entity.Mutual;
 import imb3.turnero.service.IMutualService;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 
 @RestController
 @RequestMapping("/api/v1/mutual")
@@ -76,7 +79,7 @@ public class MutualController {
 		}
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("/{idMutual}")
 	public ResponseEntity<APIResponse<Mutual>> eliminarMutual(@PathVariable("idMutual") Integer idMutual) {
 		if(this.existe(idMutual)) {
 			mutualService.eliminarMutual(idMutual);
@@ -106,4 +109,15 @@ public class MutualController {
 			}
 		}
 	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+		public ResponseEntity<APIResponse<?>> handleConstraintViolationException(ConstraintViolationException ex) {
+		List<String> errors = new ArrayList<>();
+		for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+			errors.add(violation.getMessage());
+		}
+		APIResponse<Mutual> response = new APIResponse<Mutual>(HttpStatus.BAD_REQUEST.value(), errors, null);
+		return ResponseEntity.badRequest().body(response);		
+	}
+	
 }
