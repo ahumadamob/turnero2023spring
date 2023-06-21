@@ -1,13 +1,14 @@
-package imb3.turnero.paciente.service;
+package imb3.turnero.service;
 
 import java.util.List;
-import imb3.turnero.paciente.entity.Paciente;
+
+import imb3.turnero.entity.Paciente;
 
 public interface IPacienteServicio {
 	
 	public List<Paciente> buscarPacientes();
 	public Paciente buscarPacientePorId(Integer id);
-	public void guardarPaciente(Paciente categoria);
+	public void guardarPaciente(Paciente paciente);
 	public void eliminarPaciente(Integer id);
 	
 }

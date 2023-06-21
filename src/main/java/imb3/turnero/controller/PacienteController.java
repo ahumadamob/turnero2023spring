@@ -1,4 +1,4 @@
-package imb3.turnero.paciente.controller;
+package imb3.turnero.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import imb3.turnero.paciente.entity.Paciente;
-import imb3.turnero.paciente.service.IPacienteServicio;
+
+import imb3.turnero.entity.Paciente;
+import imb3.turnero.service.IPacienteServicio;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
@@ -47,9 +48,9 @@ public class PacienteController {
 	
 	@PostMapping
 	public ResponseEntity<APIResponse<Paciente>> crearPaciente(@RequestBody Paciente paciente) {
-		if(this.existe(paciente.getIdPaciente())) {
+		if(this.existe(paciente.getId())) {
 			List<String> messages = new ArrayList<>();
-			messages.add("Ya existe una paciente con el ID = " + paciente.getIdPaciente().toString());
+			messages.add("Ya existe una paciente con el ID = " + paciente.getId().toString());
 			messages.add("Para actualizar utilice el verbo PUT");
 			APIResponse<Paciente> response = new APIResponse<Paciente>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
@@ -62,7 +63,7 @@ public class PacienteController {
 	
 	@PutMapping	
 	public ResponseEntity<APIResponse<Paciente>> modificarPaciente(@RequestBody Paciente paciente) {
-		if(this.existe(paciente.getIdPaciente())) {
+		if(this.existe(paciente.getId())) {
 			pacienteServicio.guardarPaciente(paciente);
 			APIResponse<Paciente> response = new APIResponse<Paciente>(HttpStatus.OK.value(), null, paciente);
 			return ResponseEntity.status(HttpStatus.OK).body(response);

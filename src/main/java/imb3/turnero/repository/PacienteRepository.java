@@ -1,8 +1,8 @@
-package imb3.turnero.paciente.repository;
+package imb3.turnero.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import imb3.turnero.paciente.entity.Paciente;
+import imb3.turnero.entity.Paciente;
 
 public interface PacienteRepository extends JpaRepository<Paciente, Integer>{
 	

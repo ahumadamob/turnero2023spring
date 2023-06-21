@@ -1,4 +1,4 @@
-package imb3.turnero.paciente.controller;
+package imb3.turnero.controller;
 
 import java.util.List;
 

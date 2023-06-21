@@ -1,4 +1,4 @@
-package imb3.turnero.paciente.service.mysql;
+package imb3.turnero.service.mysql;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-
-import imb3.turnero.paciente.entity.Paciente;
-import imb3.turnero.paciente.repository.PacienteRepository;
-import imb3.turnero.paciente.service.IPacienteServicio;
+import imb3.turnero.entity.Paciente;
+import imb3.turnero.repository.PacienteRepository;
+import imb3.turnero.service.IPacienteServicio;
 
 @Service
 @Primary

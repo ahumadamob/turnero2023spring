@@ -1,4 +1,4 @@
-package imb3.turnero.paciente.entity;
+package imb3.turnero.entity;
 
 import java.util.Date;
 
@@ -14,36 +14,36 @@ public class Paciente {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer idPaciente;
+	private Integer id;
 	@NotBlank(message = "El nombre no puede estar vacío")
 	@Size(max = 40, message = "El nombre no debe superar los 40 caracteres")
-	private String nombrePaciente;
+	private String nombre;
 	@NotBlank(message = "El apellido no puede estar vacío")
 	@Size(max = 40, message = "El apellido no debe superar los 40 caracteres")
-	private String apellidoPaciente;
+	private String apellido;
 	private String dni;
 	private String domicilio;
 	private Date fechaNacimiento;
 	private Integer idMutual;
 	
 	
-	public Integer getIdPaciente() {
-		return idPaciente;
+	public Integer getId() {
+		return id;
 	}
-	public void setIdPaciente(Integer idPaciente) {
-		this.idPaciente = idPaciente;
+	public void setId(Integer idPaciente) {
+		this.id = idPaciente;
 	}
-	public String getNombrePaciente() {
-		return nombrePaciente;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setNombrePaciente(String nombrePaciente) {
-		this.nombrePaciente = nombrePaciente;
+	public void setNombre(String nombrePaciente) {
+		this.nombre = nombrePaciente;
 	}
-	public String getApellidoPaciente() {
-		return apellidoPaciente;
+	public String getApellido() {
+		return apellido;
 	}
-	public void setApellidoPaciente(String apellidoPaciente) {
-		this.apellidoPaciente = apellidoPaciente;
+	public void setApellido(String apellidoPaciente) {
+		this.apellido = apellidoPaciente;
 	}
 	public String getDni() {
 		return dni;
