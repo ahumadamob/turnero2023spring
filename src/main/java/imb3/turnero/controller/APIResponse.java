@@ -1,4 +1,4 @@
-package imb3.turnero.controllers;
+package imb3.turnero.controller;
 
 import java.util.List;
 
