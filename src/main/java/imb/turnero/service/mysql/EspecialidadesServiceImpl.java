@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import imb.turnero.entity.EspecialidadEntity;
+import imb.turnero.entity.Especialidad;
 import imb.turnero.repository.EspecialidadRepository;
 import imb.turnero.service.IEspecialidadService;
 
@@ -18,13 +18,13 @@ public class EspecialidadesServiceImpl implements IEspecialidadService {
 	EspecialidadRepository repo;
 
 	@Override
-	public List<EspecialidadEntity> ObtenerEspecialidades() {
+	public List<Especialidad> ObtenerEspecialidades() {
 		
 		return repo.findAll();
 	}
 	
 	@Override
-	public void guardarTipoEspecialidad(EspecialidadEntity especialidad) {
+	public void guardarTipoEspecialidad(Especialidad especialidad) {
 		repo.save(especialidad);
 		
 	}
@@ -35,8 +35,8 @@ public class EspecialidadesServiceImpl implements IEspecialidadService {
 	}
 
 	@Override
-	public EspecialidadEntity ObtenerEspecialidadesPorId(Integer id) {
-		Optional<EspecialidadEntity> optional = repo.findById(id);
+	public Especialidad ObtenerEspecialidadesPorId(Integer id) {
+		Optional<Especialidad> optional = repo.findById(id);
 		if(optional.isPresent()) {
 			return optional.get();
 		}else {

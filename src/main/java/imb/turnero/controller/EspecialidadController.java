@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import imb.turnero.entity.EspecialidadEntity;
+import imb.turnero.entity.Especialidad;
 import imb.turnero.service.IEspecialidadService;
 
 @RestController
@@ -30,70 +30,70 @@ public class EspecialidadController {
 	IEspecialidadService servicioEspecialidades;
 	
 	@GetMapping
-	public ResponseEntity<APIResponse<List<EspecialidadEntity>>> mostrarTodos() {		
-		APIResponse<List<EspecialidadEntity>> response = new APIResponse<List<EspecialidadEntity>>(200, null, servicioEspecialidades.ObtenerEspecialidades());
+	public ResponseEntity<APIResponse<List<Especialidad>>> mostrarTodos() {		
+		APIResponse<List<Especialidad>> response = new APIResponse<List<Especialidad>>(200, null, servicioEspecialidades.ObtenerEspecialidades());
 		return ResponseEntity.status(HttpStatus.OK).body(response);	
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<APIResponse<EspecialidadEntity>> mostrarTipoEspecialidadPorId(@PathVariable("id") Integer id) {
+	public ResponseEntity<APIResponse<Especialidad>> mostrarTipoEspecialidadPorId(@PathVariable("id") Integer id) {
 		if(this.existe(id)) {
-			EspecialidadEntity especialidad = servicioEspecialidades.ObtenerEspecialidadesPorId(id);
-			APIResponse<EspecialidadEntity> response = new APIResponse<EspecialidadEntity>(HttpStatus.OK.value(), null, especialidad);
+			Especialidad especialidad = servicioEspecialidades.ObtenerEspecialidadesPorId(id);
+			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.OK.value(), null, especialidad);
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
 		}else {
 			List<String> messages = new ArrayList<>();
 			messages.add("No se encontró la especialidad con id = " + id.toString());
 			messages.add("Revise nuevamente el parámetro");
-			APIResponse<EspecialidadEntity> response = new APIResponse<EspecialidadEntity>(HttpStatus.BAD_REQUEST.value(), messages, null);
+			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
 		}
 	
 	}
 	
 	@PostMapping
-	public ResponseEntity<APIResponse<EspecialidadEntity>> crearCategoria(@RequestBody EspecialidadEntity especialidad) {
+	public ResponseEntity<APIResponse<Especialidad>> crearCategoria(@RequestBody Especialidad especialidad) {
 		if(this.existe(especialidad.getIdEspecialidad())) {
 			List<String> messages = new ArrayList<>();
 			messages.add("Ya existe una categoria con el ID = " + especialidad.getIdEspecialidad().toString());
 			messages.add("Para actualizar utilice el verbo PUT");
-			APIResponse<EspecialidadEntity> response = new APIResponse<EspecialidadEntity>(HttpStatus.BAD_REQUEST.value(), messages, null);
+			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}else {
 			servicioEspecialidades.guardarTipoEspecialidad(especialidad);
-			APIResponse<EspecialidadEntity> response = new APIResponse<EspecialidadEntity>(HttpStatus.CREATED.value(), null, especialidad);
+			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.CREATED.value(), null, especialidad);
 			return ResponseEntity.status(HttpStatus.CREATED).body(response);			
 		}			
 	}
 	
 	@PutMapping	
-	public ResponseEntity<APIResponse<EspecialidadEntity>> modificarCategoria(@RequestBody EspecialidadEntity especialidad) {
+	public ResponseEntity<APIResponse<Especialidad>> modificarCategoria(@RequestBody Especialidad especialidad) {
 		if(this.existe(especialidad.getIdEspecialidad())) {
 			servicioEspecialidades.guardarTipoEspecialidad(especialidad);
-			APIResponse<EspecialidadEntity> response = new APIResponse<EspecialidadEntity>(HttpStatus.OK.value(), null, especialidad);
+			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.OK.value(), null, especialidad);
 			return ResponseEntity.status(HttpStatus.OK).body(response);
 		}else {
 			List<String> messages = new ArrayList<>();
 			messages.add("No existe una especialidad con el ID especificado");
 			messages.add("Para crear una nueva utilice el verbo POST");
-			APIResponse<EspecialidadEntity> response = new APIResponse<EspecialidadEntity>(HttpStatus.BAD_REQUEST.value(), messages, null);
+			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
 
 	}
 	
 	@DeleteMapping("/{id}")	
-	public ResponseEntity<APIResponse<EspecialidadEntity>> eliminarTipoEspecialidad(@PathVariable("id") Integer id) {
+	public ResponseEntity<APIResponse<Especialidad>> eliminarTipoEspecialidad(@PathVariable("id") Integer id) {
 		if(this.existe(id)) {
 			servicioEspecialidades.eliminarTipoEspecialidad(id);
 			List<String> messages = new ArrayList<>();
 			messages.add("La especialidad que figura en el cuerpo ha sido eliminada") ;			
-			APIResponse<EspecialidadEntity> response = new APIResponse<EspecialidadEntity>(HttpStatus.OK.value(), messages, null);
+			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.OK.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
 		}else {
 			List<String> messages = new ArrayList<>();
 			messages.add("No existe una especialidad con el ID = " + id.toString());
-			APIResponse<EspecialidadEntity> response = new APIResponse<EspecialidadEntity>(HttpStatus.BAD_REQUEST.value(), messages, null);
+			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
 		}
 		
@@ -104,7 +104,7 @@ public class EspecialidadController {
 		if(id == null) {
 			return false;
 		}else{
-			EspecialidadEntity especialidad = servicioEspecialidades.ObtenerEspecialidadesPorId(id);
+			Especialidad especialidad = servicioEspecialidades.ObtenerEspecialidadesPorId(id);
 			if(especialidad == null) {
 				return false;				
 			}else {
@@ -120,7 +120,7 @@ public class EspecialidadController {
 		for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
 			errors.add(violation.getMessage());
 		}
-		APIResponse<EspecialidadEntity> response = new APIResponse<EspecialidadEntity>(HttpStatus.BAD_REQUEST.value(), errors, null);
+		APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.BAD_REQUEST.value(), errors, null);
 		return ResponseEntity.badRequest().body(response);
 	}
 	
