@@ -30,11 +30,10 @@ public class Mutual {
 	public void setNombreMutual(String nombreMutual) {
 		this.nombreMutual = nombreMutual;
 	}
-	public String beneficios() {
+	public String getBeneficios() {
 		return beneficios;
 	}
 	public void setBeneficios(String beneficios) {
 		this.beneficios = beneficios;
 	}
-	
 }

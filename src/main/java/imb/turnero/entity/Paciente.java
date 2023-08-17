@@ -1,12 +1,13 @@
 package imb.turnero.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -14,36 +15,38 @@ public class Paciente {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
-	@NotBlank(message = "El nombre no puede estar vacío")
-	@Size(max = 40, message = "El nombre no debe superar los 40 caracteres")
-	private String nombre;
-	@NotBlank(message = "El apellido no puede estar vacío")
-	@Size(max = 40, message = "El apellido no debe superar los 40 caracteres")
-	private String apellido;
+	private Integer idPaciente;
+	@NotBlank(message = "El nombre no puede estar vacío.")
+	@Size(max = 40, message = "El nombre no debe superar los 40 caracteres.")
+	private String nombrePaciente;
+	@NotBlank(message = "El apellido no puede estar vacío.")
+	@Size(max = 40, message = "El apellido no debe superar los 40 caracteres.")
+	private String apellidoPaciente;
+	@NotBlank(message = "El dni no puede estar vacío.")
+	@Size(max = 9, message = "El dni no debe superar los 9 caracteres.")
 	private String dni;
 	private String domicilio;
-	private Date fechaNacimiento;
+	@Past(message = "La fecha ingresada aún no sucedió.")
+	private LocalDate fechaNacimiento;
 	private Integer idMutual;
-	
-	
-	public Integer getId() {
-		return id;
+		
+	public Integer getIdPaciente() {
+		return idPaciente;
 	}
-	public void setId(Integer idPaciente) {
-		this.id = idPaciente;
+	public void setIdPaciente(Integer idPaciente) {
+		this.idPaciente = idPaciente;
 	}
-	public String getNombre() {
-		return nombre;
+	public String getNombrePaciente() {
+		return nombrePaciente;
 	}
-	public void setNombre(String nombrePaciente) {
-		this.nombre = nombrePaciente;
+	public void setNombrePaciente(String nombrePaciente) {
+		this.nombrePaciente = nombrePaciente;
 	}
-	public String getApellido() {
-		return apellido;
+	public String getApellidoPaciente() {
+		return apellidoPaciente;
 	}
-	public void setApellido(String apellidoPaciente) {
-		this.apellido = apellidoPaciente;
+	public void setApellidoPaciente(String apellidoPaciente) {
+		this.apellidoPaciente = apellidoPaciente;
 	}
 	public String getDni() {
 		return dni;
@@ -57,10 +60,10 @@ public class Paciente {
 	public void setDomicilio(String domicilio) {
 		this.domicilio = domicilio;
 	}
-	public Date getFechaNacimiento() {
+	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 	public Integer getIdMutual() {
@@ -69,6 +72,4 @@ public class Paciente {
 	public void setIdMutual(Integer idMutual) {
 		this.idMutual = idMutual;
 	}
-	
-	
 }

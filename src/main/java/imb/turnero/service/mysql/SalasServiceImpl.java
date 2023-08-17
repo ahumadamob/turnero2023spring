@@ -27,7 +27,6 @@ public class SalasServiceImpl implements ISalasService {
 	@Override
 	public void guardarSalas(Salas salas) {
 		repo.save(salas);
-		
 	}
 
 	@Override
@@ -44,5 +43,4 @@ public class SalasServiceImpl implements ISalasService {
 			return null;
 		}		
 	}
-
 }

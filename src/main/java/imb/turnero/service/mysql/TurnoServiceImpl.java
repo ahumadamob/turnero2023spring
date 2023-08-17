@@ -13,7 +13,7 @@ import imb.turnero.service.ITurnoService;
 
 @Service
 @Primary
-public class TurnoServiceImpl implements ITurnoService{
+public class TurnoServiceImpl implements ITurnoService {
 
 	@Autowired
 	TurnoRepository repo;
@@ -26,7 +26,6 @@ public class TurnoServiceImpl implements ITurnoService{
 	@Override
 	public void guardarTurno(Turno turno) {
 		repo.save(turno);
-		
 	}
 
 	@Override
@@ -43,5 +42,4 @@ public class TurnoServiceImpl implements ITurnoService{
 			return null;
 		}		
 	}
-
 }

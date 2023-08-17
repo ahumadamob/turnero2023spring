@@ -36,13 +36,10 @@ public class MutualServiceImpl implements IMutualService {
 	@Override
 	public void guardarMutual(Mutual mutual) {
 		repo.save(mutual);
-		
 	}
 
 	@Override
 	public void eliminarMutual(Integer idMutual) {
 		repo.deleteById(idMutual);
-		
 	}
-	
 }

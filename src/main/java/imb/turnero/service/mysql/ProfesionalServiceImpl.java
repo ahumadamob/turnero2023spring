@@ -12,7 +12,6 @@ import imb.turnero.entity.*;
 import imb.turnero.repository.ProfesionalRepository;
 import imb.turnero.service.IProfesionalService;
 
-
 @Service
 @Primary
 public class ProfesionalServiceImpl implements IProfesionalService {
@@ -23,13 +22,11 @@ public class ProfesionalServiceImpl implements IProfesionalService {
 	@Override
 	public List<Profesional> buscarProfesional() {		
 		return repo.findAll();
-
 	}
 
 	@Override
 	public void guardarProfesional(Profesional profesional) {
 		repo.save(profesional);
-		
 	}
 
 	@Override
@@ -46,5 +43,4 @@ public class ProfesionalServiceImpl implements IProfesionalService {
 			return null;
 		}		
 	}
-
 }

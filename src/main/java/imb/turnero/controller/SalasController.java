@@ -21,7 +21,6 @@ import imb.turnero.service.ISalasService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
-
 @RestController
 @RequestMapping("/api/v1/salas")
 public class SalasController {
@@ -44,20 +43,19 @@ public class SalasController {
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
 		}else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No se encontró la Sala con id = " + id.toString());
-			messages.add("Revise nuevamente el parámetro");
+			messages.add("No se encontró la sala con id = " + id.toString());
+			messages.add("Revise nuevamente el parámetro.");
 			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
 		}
-	
 	}
 	
 	@PostMapping
 	public ResponseEntity<APIResponse<Salas>> crearSalas(@RequestBody Salas salas) {
 		if(this.existe(salas.getIdSalas())) {
 			List<String> messages = new ArrayList<>();
-			messages.add("Ya existe una sala con el ID = " + salas.getIdSalas().toString());
-			messages.add("Para actualizar utilice el verbo PUT");
+			messages.add("Ya existe una sala con el id = " + salas.getIdSalas().toString());
+			messages.add("Para actualizar utilice el verbo PUT.");
 			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}else {
@@ -75,8 +73,8 @@ public class SalasController {
 			return ResponseEntity.status(HttpStatus.OK).body(response);
 		}else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No existe una sala con el ID especificado");
-			messages.add("Para crear una nueva utilice el verbo POST");
+			messages.add("No existe una sala con el id especificado.");
+			messages.add("Para crear una nueva utilice el verbo POST.");
 			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
@@ -88,12 +86,12 @@ public class SalasController {
 		if(this.existe(id)) {
 			salasService.eliminarSalas(id);
 			List<String> messages = new ArrayList<>();
-			messages.add("La Sala que figura en el cuerpo ha sido eliminada") ;			
+			messages.add("La sala que figura en el cuerpo ha sido eliminada.") ;			
 			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.OK.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
 		}else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No existe una sala con el ID = " + id.toString());
+			messages.add("No existe una sala con el id = " + id.toString());
 			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
 		}
@@ -110,21 +108,18 @@ public class SalasController {
 				return false;				
 			}else {
 				return true;
-		}
+			}
 		}
 	}
+	
+	
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<APIResponse<?>> handleConstrainViolationException(ConstraintViolationException ex){
 		List<String> errors = new ArrayList<>();
 		for(ConstraintViolation<?> violation : ex.getConstraintViolations()) {
 			errors.add(violation.getMessage());
-		}
-
-		
+		}		
 		APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.BAD_REQUEST.value(), errors, null);
 		return ResponseEntity.badRequest().body(response);
 	}
-	}
-
-	
-	
+}

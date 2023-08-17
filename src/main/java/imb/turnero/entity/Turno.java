@@ -62,9 +62,4 @@ public class Turno {
 		public void setIdProfesional(Integer idProfesional) {
 			this.idProfesional = idProfesional;
 		}
-		
-		
-			
 	}
-
-

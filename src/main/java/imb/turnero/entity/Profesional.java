@@ -9,14 +9,16 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 public class Profesional {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idProfesional;
-	@NotBlank(message = "El nombre no puede estar vacío")
-	@Size(max = 60, message = "El nombre no debe superar los 60 caracteres") 
+	@NotBlank(message = "El nombre no puede estar vacío.")
+	@Size(max = 30, message = "El nombre no debe superar los 30 caracteres.") 
 	private String nombreProfesional;
+	@NotBlank(message = "El apellido no puede estar vacío.")
+	@Size(max = 30, message = "El apellido no debe superar los 30 caracteres.") 
 	private String apellidoProfesional;
-	@NotBlank(message = "El nombre no puede estar vacío")
 	private Integer idEspecialidad;
 	
 	public Integer getIdProfesional() {
@@ -43,5 +45,4 @@ public class Profesional {
 	public void setIdEspecialidad(Integer idEspecialidad) {
 		this.idEspecialidad = idEspecialidad;
 	}
-	
 }

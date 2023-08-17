@@ -6,9 +6,9 @@ import imb.turnero.entity.Especialidad;
 
 public interface IEspecialidadService {
 	
-	public List<Especialidad> ObtenerEspecialidades();
-	public Especialidad ObtenerEspecialidadesPorId(Integer id);
-	public void guardarTipoEspecialidad(Especialidad especialidad);
-	public void eliminarTipoEspecialidad(Integer id);
+	public List<Especialidad> buscarEspecialidad ();
+	public Especialidad buscarEspecialidadPorId (Integer id);
+	public void guardarEspecialidad (Especialidad especialidad);
+	public void eliminarEspecialidad (Integer id);
 
 }

@@ -21,7 +21,6 @@ import imb.turnero.service.IProfesionalService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
-
 @RestController
 @RequestMapping("/api/v1/profesional")
 public class ProfesionalController {
@@ -43,20 +42,19 @@ public class ProfesionalController {
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
 		}else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No se encontró el Profesional con id = " + id.toString());
-			messages.add("Revise nuevamente el parámetro");
+			messages.add("No se encontró el profesional con id = " + id.toString());
+			messages.add("Revise nuevamente el parámetro.");
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
 		}
-	
 	}
 	
 	@PostMapping
 	public ResponseEntity<APIResponse<Profesional>> crearProfesional(@RequestBody Profesional profesional) {
 		if(this.existe(profesional.getIdProfesional())) {
 			List<String> messages = new ArrayList<>();
-			messages.add("Ya existe un Profesional con el ID = " + profesional.getIdProfesional().toString());
-			messages.add("Para actualizar utilice el verbo PUT");
+			messages.add("Ya existe un profesional con el id = " + profesional.getIdProfesional().toString());
+			messages.add("Para actualizar utilice el verbo PUT.");
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}else {
@@ -74,8 +72,8 @@ public class ProfesionalController {
 			return ResponseEntity.status(HttpStatus.OK).body(response);
 		}else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No existe un profesional con el ID especificado");
-			messages.add("Para crear una nueva utilice el verbo POST");
+			messages.add("No existe un profesional con el id especificado.");
+			messages.add("Para crear uno nuevo utilice el verbo POST.");
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
@@ -87,16 +85,15 @@ public class ProfesionalController {
 		if(this.existe(id)) {
 			profesionalService.eliminarProfesional(id);
 			List<String> messages = new ArrayList<>();
-			messages.add("El Profesional que figura en el cuerpo ha sido eliminada") ;			
+			messages.add("El profesional que figura en el cuerpo ha sido eliminado.") ;			
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.OK.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
 		}else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No existe un Profesional con el ID = " + id.toString());
+			messages.add("No existe un profesional con el id = " + id.toString());
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
 		}
-		
 	}
 	
 	
@@ -122,5 +119,4 @@ public class ProfesionalController {
 		APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.BAD_REQUEST.value(), errors, null);
 		return ResponseEntity.badRequest().body(response);
 	}
-
 }

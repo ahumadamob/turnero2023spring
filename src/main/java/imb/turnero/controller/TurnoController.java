@@ -42,20 +42,19 @@ public class TurnoController {
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
 		}else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No se encontró el turno con ID = " + id.toString());
-			messages.add("Revise nuevamente el parámetro");
+			messages.add("No se encontró el turno con id = " + id.toString());
+			messages.add("Revise nuevamente el parámetro.");
 			APIResponse<Turno> response = new APIResponse<Turno>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
 		}
-	
 	}
 	
 	@PostMapping
 	public ResponseEntity<APIResponse<Turno>> crearTurno(@RequestBody Turno turno) {
 		if(this.existe(turno.getIdTurno())) {
 			List<String> messages = new ArrayList<>();
-			messages.add("Ya existe un turno con el ID = " + turno.getIdTurno().toString());
-			messages.add("Para actualizar utilice el verbo PUT");
+			messages.add("Ya existe un turno con el id = " + turno.getIdTurno().toString());
+			messages.add("Para actualizar utilice el verbo PUT.");
 			APIResponse<Turno> response = new APIResponse<Turno>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}else {
@@ -66,36 +65,34 @@ public class TurnoController {
 	}
 	
 	@PutMapping	
-	public ResponseEntity<APIResponse<Turno>> modificarCategoria(@RequestBody Turno categoria) {
-		if(this.existe(categoria.getIdTurno())) {
-			turnoService.guardarTurno(categoria);
-			APIResponse<Turno> response = new APIResponse<Turno>(HttpStatus.OK.value(), null, categoria);
+	public ResponseEntity<APIResponse<Turno>> modificarTurno(@RequestBody Turno turno) {
+		if(this.existe(turno.getIdTurno())) {
+			turnoService.guardarTurno(turno);
+			APIResponse<Turno> response = new APIResponse<Turno>(HttpStatus.OK.value(), null, turno);
 			return ResponseEntity.status(HttpStatus.OK).body(response);
 		}else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No existe un turno con el ID especificado");
-			messages.add("Para crear una nueva utilice el verbo POST");
+			messages.add("No existe un turno con el id especificado.");
+			messages.add("Para crear uno nuevo utilice el verbo POST.");
 			APIResponse<Turno> response = new APIResponse<Turno>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
-
 	}
 	
 	@DeleteMapping("/{id}")	
-	public ResponseEntity<APIResponse<Turno>> eliminarCategoria(@PathVariable("id") Integer id) {
+	public ResponseEntity<APIResponse<Turno>> eliminarTurno(@PathVariable("id") Integer id) {
 		if(this.existe(id)) {
 			turnoService.eliminarTurno(id);
 			List<String> messages = new ArrayList<>();
-			messages.add("El turno enviado por parámetros ha sido eliminado") ;			
+			messages.add("El turno que figura en el cuerpo ha sido eliminado.") ;			
 			APIResponse<Turno> response = new APIResponse<Turno>(HttpStatus.OK.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
 		}else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No existe un turno con el ID = " + id.toString());
+			messages.add("No existe un turno con el id = " + id.toString());
 			APIResponse<Turno> response = new APIResponse<Turno>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
 		}
-		
 	}
 	
 	
@@ -122,7 +119,4 @@ public class TurnoController {
 		APIResponse<Turno> response = new APIResponse<Turno>(HttpStatus.BAD_REQUEST.value(), errors, null);
 		return ResponseEntity.badRequest().body(response);
 	}
-
-
-
 }

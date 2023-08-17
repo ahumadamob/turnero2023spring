@@ -36,13 +36,10 @@ public class PacienteServiceImpl implements IPacienteService {
 	@Override
 	public void guardarPaciente(Paciente paciente) {
 		repo.save(paciente);
-		
 	}
 
 	@Override
 	public void eliminarPaciente(Integer id) {
 		repo.deleteById(id);
-		
 	}
-	
 }

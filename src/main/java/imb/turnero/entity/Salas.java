@@ -13,28 +13,31 @@ public class Salas {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idSalas;
-	@NotBlank(message = "El nombre no puede estar vacío")
-	@Size(max = 20, message = "El nombre no debe superar los 10 caracteres")
-	private	String nombre;
-	private boolean disponibles;
+	@NotBlank(message = "El nombre no puede estar vacío.")
+	@Size(max = 20, message = "El nombre no debe superar los 20 caracteres.")
+	private	String nombreSalas;
+	private boolean disponible;
+	@NotBlank(message = "La ubicación no puede estar vacía.")
+	@Size(max = 30, message = "La ubicación no debe superar los 30 caracteres.")
 	private String ubicacion;
+	
 	public Integer getIdSalas() {
 		return idSalas;
 	}
 	public void setIdSalas(Integer idSalas) {
 		this.idSalas = idSalas;
 	}
-	public String getNombre() {
-		return nombre;
+	public String getNombreSalas() {
+		return nombreSalas;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreSalas(String nombreSalas) {
+		this.nombreSalas = nombreSalas;
 	}
-	public boolean isDisponibles() {
-		return disponibles;
+	public boolean isDisponible() {
+		return disponible;
 	}
-	public void setDisponibles(boolean disponibles) {
-		this.disponibles = disponibles;
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
 	}
 	public String getUbicacion() {
 		return ubicacion;
@@ -42,7 +45,4 @@ public class Salas {
 	public void setUbicacion(String ubicacion) {
 		this.ubicacion = ubicacion;
 	}
-
-	
-	
 }
