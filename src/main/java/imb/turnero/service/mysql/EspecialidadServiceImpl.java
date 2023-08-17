@@ -12,7 +12,7 @@ import imb.turnero.service.IEspecialidadService;
 
 @Service
 @Primary
-public class EspecialidadesServiceImpl implements IEspecialidadService {
+public class EspecialidadServiceImpl implements IEspecialidadService {
 	
 	@Autowired
 	EspecialidadRepository repo;
