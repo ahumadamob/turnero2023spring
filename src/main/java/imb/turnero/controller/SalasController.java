@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import imb.pr2.turnero.entity.Salas;
-import imb.turnero.service.ISalasService;
+import imb.pr2.turnero.service.ISalasService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 

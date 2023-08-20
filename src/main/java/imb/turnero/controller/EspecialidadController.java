@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import imb.pr2.turnero.entity.Especialidad;
-import imb.turnero.service.IEspecialidadService;
+import imb.pr2.turnero.service.IEspecialidadService;
 
 @RestController
 @RequestMapping("/api/v1/especialidades")

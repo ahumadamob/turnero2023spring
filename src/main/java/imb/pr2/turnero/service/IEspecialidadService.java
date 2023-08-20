@@ -1,4 +1,4 @@
-package imb.turnero.service;
+package imb.pr2.turnero.service;
 
 import java.util.List;
 

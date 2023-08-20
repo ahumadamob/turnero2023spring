@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import imb.pr2.turnero.entity.Turno;
+import imb.pr2.turnero.service.ITurnoService;
 import imb.turnero.repository.TurnoRepository;
-import imb.turnero.service.ITurnoService;
 
 @Service
 @Primary

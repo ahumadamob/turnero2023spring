@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import imb.pr2.turnero.entity.Paciente;
-import imb.turnero.service.IPacienteService;
+import imb.pr2.turnero.service.IPacienteService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 

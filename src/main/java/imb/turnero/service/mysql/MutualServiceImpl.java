@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import imb.pr2.turnero.entity.Mutual;
+import imb.pr2.turnero.service.IMutualService;
 import imb.turnero.repository.MutualRepository;
-import imb.turnero.service.IMutualService;
 
 @Service
 @Primary

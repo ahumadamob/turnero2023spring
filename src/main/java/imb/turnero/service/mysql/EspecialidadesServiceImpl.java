@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import imb.pr2.turnero.entity.Especialidad;
+import imb.pr2.turnero.service.IEspecialidadService;
 import imb.turnero.repository.EspecialidadRepository;
-import imb.turnero.service.IEspecialidadService;
 
 @Service
 @Primary

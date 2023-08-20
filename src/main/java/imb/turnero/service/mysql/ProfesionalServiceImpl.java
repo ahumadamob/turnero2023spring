@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import imb.pr2.turnero.entity.*;
+import imb.pr2.turnero.service.IProfesionalService;
 import imb.turnero.repository.ProfesionalRepository;
-import imb.turnero.service.IProfesionalService;
 
 
 @Service
