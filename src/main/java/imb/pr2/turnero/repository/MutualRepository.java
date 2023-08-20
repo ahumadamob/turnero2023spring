@@ -1,4 +1,4 @@
-package imb.turnero.repository;
+package imb.pr2.turnero.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
