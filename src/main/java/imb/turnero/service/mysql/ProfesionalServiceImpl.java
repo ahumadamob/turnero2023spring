@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import imb.turnero.entity.*;
+import imb.pr2.turnero.entity.*;
 import imb.turnero.repository.ProfesionalRepository;
 import imb.turnero.service.IProfesionalService;
 

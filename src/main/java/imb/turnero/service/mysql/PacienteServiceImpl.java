@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import imb.turnero.entity.Paciente;
+import imb.pr2.turnero.entity.Paciente;
 import imb.turnero.repository.PacienteRepository;
 import imb.turnero.service.IPacienteService;
 

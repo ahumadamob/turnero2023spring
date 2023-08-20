@@ -2,7 +2,7 @@ package imb.turnero.service;
 
 import java.util.List;
 
-import imb.turnero.entity.Mutual;
+import imb.pr2.turnero.entity.Mutual;
 
 public interface IMutualService {
 

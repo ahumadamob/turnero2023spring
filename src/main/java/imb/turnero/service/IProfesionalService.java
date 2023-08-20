@@ -2,7 +2,7 @@ package imb.turnero.service;
 
 import java.util.List;
 
-import imb.turnero.entity.Profesional;
+import imb.pr2.turnero.entity.Profesional;
 
 public interface IProfesionalService {
 	public List<Profesional> buscarProfesional();

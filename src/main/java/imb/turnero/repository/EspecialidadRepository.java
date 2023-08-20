@@ -2,8 +2,8 @@ package imb.turnero.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import imb.turnero.entity.EspecialidadEntity;
+import imb.pr2.turnero.entity.Especialidad;
 
-public interface EspecialidadRepository extends JpaRepository<EspecialidadEntity, Integer> {
+public interface EspecialidadRepository extends JpaRepository<Especialidad, Integer> {
 
 }

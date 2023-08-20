@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import imb.turnero.entity.Mutual;
+import imb.pr2.turnero.entity.Mutual;
 import imb.turnero.service.IMutualService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;

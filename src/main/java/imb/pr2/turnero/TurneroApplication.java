@@ -1,4 +1,4 @@
-package imb.turnero;
+package imb.pr2.turnero;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

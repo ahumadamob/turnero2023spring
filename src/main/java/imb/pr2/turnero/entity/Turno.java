@@ -1,4 +1,4 @@
-package imb.turnero.entity;
+package imb.pr2.turnero.entity;
 
 import java.time.LocalDateTime;
 

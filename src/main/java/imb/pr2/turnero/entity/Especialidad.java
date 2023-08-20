@@ -1,4 +1,4 @@
-package imb.turnero.entity;
+package imb.pr2.turnero.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-public class EspecialidadEntity {
+public class Especialidad {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
