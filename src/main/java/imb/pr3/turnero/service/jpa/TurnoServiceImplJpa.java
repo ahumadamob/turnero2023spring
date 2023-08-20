@@ -1,4 +1,4 @@
-package imb.turnero.service.mysql;
+package imb.pr3.turnero.service.jpa;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +13,7 @@ import imb.pr2.turnero.service.ITurnoService;
 
 @Service
 @Primary
-public class TurnoServiceImpl implements ITurnoService{
+public class TurnoServiceImplJpa implements ITurnoService{
 
 	@Autowired
 	TurnoRepository repo;

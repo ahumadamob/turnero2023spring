@@ -1,4 +1,4 @@
-package imb.turnero.service.mysql;
+package imb.pr3.turnero.service.jpa;
 
 
 import java.util.List;
@@ -15,7 +15,7 @@ import imb.pr2.turnero.service.IProfesionalService;
 
 @Service
 @Primary
-public class ProfesionalServiceImpl implements IProfesionalService {
+public class ProfesionalServiceImplJpa implements IProfesionalService {
 	
 	@Autowired
 	ProfesionalRepository repo;

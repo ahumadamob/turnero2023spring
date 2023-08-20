@@ -1,4 +1,4 @@
-package imb.turnero.service.mysql;
+package imb.pr3.turnero.service.jpa;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,7 @@ import imb.pr2.turnero.service.IEspecialidadService;
 
 @Service
 @Primary
-public class EspecialidadesServiceImpl implements IEspecialidadService {
+public class EspecialidadesServiceImplJpa implements IEspecialidadService {
 	
 	@Autowired
 	EspecialidadRepository repo;
