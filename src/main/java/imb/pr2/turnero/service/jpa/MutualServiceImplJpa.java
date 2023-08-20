@@ -1,4 +1,4 @@
-package imb.pr3.turnero.service.jpa;
+package imb.pr2.turnero.service.jpa;
 
 import java.util.List;
 import java.util.Optional;
