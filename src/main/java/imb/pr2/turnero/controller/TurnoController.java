@@ -1,4 +1,4 @@
-package imb.turnero.controller;
+package imb.pr2.turnero.controller;
 
 import java.util.ArrayList;
 import java.util.List;
