@@ -12,25 +12,25 @@ public class Mutual {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer idMutual;
+	private Integer id;
 	@NotBlank(message = "El nombre de la mutual no puede estar vacío.")
-	@Size(max = 100, message = "El nombre de la mutual no debe exceder los 100 caracteres.")
-	private String nombreMutual;
+	@Size(max = 20, message = "El nombre de la mutual no debe exceder los 20 caracteres.")
+	private String nombre;
 	private String beneficios;
 	
-	public Integer getIdMutual() {
-		return idMutual;
+	public Integer getId() {
+		return id;
 	}
-	public void setIdMutual(Integer idMutual) {
-		this.idMutual = idMutual;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public String getNombreMutual() {
-		return nombreMutual;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setNombreMutual(String nombreMutual) {
-		this.nombreMutual = nombreMutual;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	public String beneficios() {
+	public String getBeneficios() {
 		return beneficios;
 	}
 	public void setBeneficios(String beneficios) {
