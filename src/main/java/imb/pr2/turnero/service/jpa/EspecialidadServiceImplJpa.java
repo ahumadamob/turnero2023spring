@@ -12,36 +12,32 @@ import imb.pr2.turnero.service.IEspecialidadService;
 
 @Service
 @Primary
-public class EspecialidadesServiceImplJpa implements IEspecialidadService {
+public class EspecialidadServiceImplJpa implements IEspecialidadService {
 	
 	@Autowired
 	EspecialidadRepository repo;
 
 	@Override
-	public List<Especialidad> ObtenerEspecialidades() {
+	public List<Especialidad> obtenerTodasLasEspecialidades() {
 		
 		return repo.findAll();
 	}
 	
 	@Override
-	public void guardarTipoEspecialidad(Especialidad especialidad) {
+	public void guardarEspecialidad(Especialidad especialidad) {
 		repo.save(especialidad);
 		
 	}
 
-	@Override
-	public void eliminarTipoEspecialidad(Integer id) {
-		repo.deleteById(id);		
-	}
+	 @Override
+	    public Especialidad obtenerEspecialidadPorId(Integer id) {
+	        Optional<Especialidad> optional = repo.findById(id);
+	        return optional.orElse(null);
+	    }
 
 	@Override
-	public Especialidad ObtenerEspecialidadesPorId(Integer id) {
-		Optional<Especialidad> optional = repo.findById(id);
-		if(optional.isPresent()) {
-			return optional.get();
-		}else {
-			return null;
-		}		
+	public void eliminarEspecialidad(Integer id) {
+		repo.deleteById(id);				
 	}
 
 }
