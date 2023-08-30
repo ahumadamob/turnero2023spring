@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -22,9 +24,18 @@ public class Turno {
 		private LocalDateTime fechaYHora;
 		@NotNull(message = "El id del paciente no puede estar vacío.")
 		@Min(value=1, message="El id del paciente debe ser mayor que 1.")
-		private Integer idPaciente;
-		private Integer idSalas;
-		private Integer idProfesional;
+
+	    @ManyToOne
+	    @JoinColumn(name = "id_paciente")
+	    private Paciente paciente;
+	    
+	    @ManyToOne
+	    @JoinColumn(name = "id_salas")
+	    private Salas salas;
+	    
+	    @ManyToOne
+	    @JoinColumn(name = "id_profesional")
+	    private Profesional profesional;
 		
 		public Integer getIdTurno() {
 			return idTurno;
@@ -44,26 +55,24 @@ public class Turno {
 		public void setFechaYHora(LocalDateTime fechaYHora) {
 			this.fechaYHora = fechaYHora;
 		}
-		public Integer getIdPaciente() {
-			return idPaciente;
+		public Paciente getPaciente() {
+			return paciente;
 		}
-		public void setIdPaciente(Integer idPaciente) {
-			this.idPaciente = idPaciente;
+		public void setPaciente(Paciente paciente) {
+			this.paciente = paciente;
 		}
-		public Integer getIdSalas() {
-			return idSalas;
+		public Salas getSalas() {
+			return salas;
 		}
-		public void setIdSalas(Integer idSalas) {
-			this.idSalas = idSalas;
+		public void setSalas(Salas salas) {
+			this.salas = salas;
 		}
-		public Integer getIdProfesional() {
-			return idProfesional;
+		public Profesional getProfesional() {
+			return profesional;
 		}
-		public void setIdProfesional(Integer idProfesional) {
-			this.idProfesional = idProfesional;
+		public void setProfesional(Profesional profesional) {
+			this.profesional = profesional;
 		}
-		
-		
 			
 	}
 
