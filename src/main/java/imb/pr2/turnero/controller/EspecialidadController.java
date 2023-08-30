@@ -3,9 +3,6 @@ package imb.pr2.turnero.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import imb.pr2.turnero.entity.Especialidad;
 import imb.pr2.turnero.service.IEspecialidadService;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 
 @RestController
 @RequestMapping("/api/v1/especialidades")
