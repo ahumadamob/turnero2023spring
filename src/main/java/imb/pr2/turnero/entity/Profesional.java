@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -19,7 +21,8 @@ public class Profesional {
 	private String apellidoProfesional;
 	@NotBlank(message = "El nombre no puede estar vacío")
 	@ManyToOne
-	private Especialidad idEspecialidad;
+	@JoinColumn(name="especialidad")
+	private Especialidad especialidad;
 	
 	public Integer getIdProfesional() {
 		return idProfesional;
@@ -40,10 +43,10 @@ public class Profesional {
 		this.apellidoProfesional = apellidoProfesional;
 	}
 	public Especialidad getIdEspecialidad() {
-		return idEspecialidad;
+		return especialidad;
 	}
 	public void setIdEspecialidad(Especialidad idEspecialidad) {
-		this.idEspecialidad = idEspecialidad;
+		this.especialidad = idEspecialidad;
 	}
 	
 }
