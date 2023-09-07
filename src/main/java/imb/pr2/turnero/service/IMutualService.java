@@ -6,9 +6,9 @@ import imb.pr2.turnero.entity.Mutual;
 
 public interface IMutualService {
 
-	public List<Mutual> buscarMutual();
-	public Mutual buscarMutualPorId(Integer idMutual);
+	public List<Mutual> obtenerTodasLasMutuales();
+	public Mutual obtenerMutualPorId(Integer id);
 	public void guardarMutual(Mutual mutual);
-	public void eliminarMutual(Integer idMutual);
+	public void eliminarMutual(Integer id);
 	
 }

@@ -21,30 +21,26 @@ public class ProfesionalServiceImplJpa implements IProfesionalService {
 	ProfesionalRepository repo;
 
 	@Override
-	public List<Profesional> buscarProfesional() {		
+	public List<Profesional> buscar() {		
 		return repo.findAll();
 
 	}
 
 	@Override
-	public void guardarProfesional(Profesional profesional) {
+	public void guardar(Profesional profesional) {
 		repo.save(profesional);
 		
 	}
 
 	@Override
-	public void eliminarProfesional(Integer id) {
+	public void eliminar(Integer id) {
 		repo.deleteById(id);		
 	}
 
 	@Override
-	public Profesional buscarProfesionalPorId(Integer id) {
+	public Profesional buscarPorId(Integer id) {
 		Optional<Profesional> optional = repo.findById(id);
-		if(optional.isPresent()) {
-			return optional.get();
-		}else {
-			return null;
-		}		
+		return optional.orElse(null);	
 	}
 
 }

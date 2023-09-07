@@ -8,21 +8,21 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-public class Salas {
+public class Sala {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer idSalas;
+	private Integer id;
 	@NotBlank(message = "El nombre no puede estar vacío")
 	@Size(max = 20, message = "El nombre no debe superar los 10 caracteres")
 	private	String nombre;
 	private boolean disponibles;
 	private String ubicacion;
-	public Integer getIdSalas() {
-		return idSalas;
+	public Integer getId() {
+		return id;
 	}
-	public void setIdSalas(Integer idSalas) {
-		this.idSalas = idSalas;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;
@@ -42,7 +42,6 @@ public class Salas {
 	public void setUbicacion(String ubicacion) {
 		this.ubicacion = ubicacion;
 	}
-
 	
 	
 }

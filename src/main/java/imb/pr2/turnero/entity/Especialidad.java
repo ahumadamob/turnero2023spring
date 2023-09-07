@@ -12,16 +12,16 @@ public class Especialidad {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer idEspecialidad;
+	private Integer id;
 	@NotBlank(message = "El nombre de la especialidad no puede estar vacío")
 	@Size(max = 40, message = "El nombre de la especialidad no debe superar los 40 caracteres")
 	private String nombre;
 	
-	public Integer getIdEspecialidad() {
-		return idEspecialidad;
+	public Integer getId() {
+		return id;
 	}
-	public void setIdEspecialidad(Integer idEspecialidad) {
-		this.idEspecialidad = idEspecialidad;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getNombre() {
 		return nombre;
