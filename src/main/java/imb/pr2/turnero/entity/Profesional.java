@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -13,11 +15,13 @@ public class Profesional {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idProfesional;
 	@NotBlank(message = "El nombre no puede estar vacío")
-	@Size(max = 60, message = "El nombre no debe superar los 60 caracteres") 
+	@Size(max = 60, message = "El nombre no debe superar los 60 caracteres")
 	private String nombreProfesional;
 	private String apellidoProfesional;
 	@NotBlank(message = "El nombre no puede estar vacío")
-	private Integer idEspecialidad;
+	@ManyToOne
+	@JoinColumn(name="especialidadId")
+	private Especialidad especialidad;
 	
 	public Integer getIdProfesional() {
 		return idProfesional;
@@ -37,11 +41,11 @@ public class Profesional {
 	public void setApellidoProfesional(String apellidoProfesional) {
 		this.apellidoProfesional = apellidoProfesional;
 	}
-	public Integer getIdEspecialidad() {
-		return idEspecialidad;
+	public Especialidad getEspecialidadId() {
+		return especialidad;
 	}
-	public void setIdEspecialidad(Integer idEspecialidad) {
-		this.idEspecialidad = idEspecialidad;
+	public void setEspecialidad(Especialidad idEspecialidad) {
+		this.especialidad = idEspecialidad;
 	}
 	
 }

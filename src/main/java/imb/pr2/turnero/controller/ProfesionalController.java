@@ -30,15 +30,15 @@ public class ProfesionalController {
 	IProfesionalService profesionalService;
 	
 	@GetMapping
-	public ResponseEntity<APIResponse<List<Profesional>>> mostrarTodos() {		
-		APIResponse<List<Profesional>> response = new APIResponse<List<Profesional>>(200, null, profesionalService.buscarProfesional());
+	public ResponseEntity<APIResponse<List<Profesional>>> buscarTodos() {		
+		APIResponse<List<Profesional>> response = new APIResponse<List<Profesional>>(200, null, profesionalService.buscar());
 		return ResponseEntity.status(HttpStatus.OK).body(response);	
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<APIResponse<Profesional>> mostrarProfesionalPorId(@PathVariable("id") Integer id) {
+	public ResponseEntity<APIResponse<Profesional>> buscarProfesionalPorId(@PathVariable("id") Integer id) {
 		if(this.existe(id)) {
-			Profesional profesional = profesionalService.buscarProfesionalPorId(id);
+			Profesional profesional = profesionalService.buscarPorId(id);
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.OK.value(), null, profesional);
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
 		}else {
@@ -60,7 +60,7 @@ public class ProfesionalController {
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}else {
-			profesionalService.guardarProfesional(profesional);
+			profesionalService.guardar(profesional);
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.CREATED.value(), null, profesional);
 			return ResponseEntity.status(HttpStatus.CREATED).body(response);			
 		}			
@@ -69,7 +69,7 @@ public class ProfesionalController {
 	@PutMapping	
 	public ResponseEntity<APIResponse<Profesional>> modificarProfesional(@RequestBody Profesional profesional) {
 		if(this.existe(profesional.getIdProfesional())) {
-			profesionalService.guardarProfesional(profesional);
+			profesionalService.guardar(profesional);
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.OK.value(), null, profesional);
 			return ResponseEntity.status(HttpStatus.OK).body(response);
 		}else {
@@ -85,7 +85,7 @@ public class ProfesionalController {
 	@DeleteMapping("/{id}")	
 	public ResponseEntity<APIResponse<Profesional>> eliminarProfesional(@PathVariable("id") Integer id) {
 		if(this.existe(id)) {
-			profesionalService.eliminarProfesional(id);
+			profesionalService.eliminar(id);
 			List<String> messages = new ArrayList<>();
 			messages.add("El Profesional que figura en el cuerpo ha sido eliminada") ;			
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.OK.value(), messages, null);
@@ -104,7 +104,7 @@ public class ProfesionalController {
 		if(id == null) {
 			return false;
 		}else{
-			Profesional profesional = profesionalService.buscarProfesionalPorId(id);
+			Profesional profesional = profesionalService.buscarPorId(id);
 			if(profesional == null) {
 				return false;				
 			}else {
