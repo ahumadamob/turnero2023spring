@@ -31,14 +31,14 @@ public class EspecialidadController {
 	
 	@GetMapping
 	public ResponseEntity<APIResponse<List<Especialidad>>> mostrarTodasLasEspecialidades() {		
-		APIResponse<List<Especialidad>> response = new APIResponse<List<Especialidad>>(200, null, especialidadService.obtenerTodasLasEspecialidades());
+		APIResponse<List<Especialidad>> response = new APIResponse<List<Especialidad>>(200, null, especialidadService.obtenerTodas());
 		return ResponseEntity.status(HttpStatus.OK).body(response);	
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<APIResponse<Especialidad>> mostrarTipoEspecialidadPorId(@PathVariable("id") Integer id) {
 		if(this.existe(id)) {
-			Especialidad especialidad = especialidadService.obtenerEspecialidadPorId(id);
+			Especialidad especialidad = especialidadService.obtenerPorId(id);
 			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.OK.value(), null, especialidad);
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
 		}else {
@@ -60,7 +60,7 @@ public class EspecialidadController {
 			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}else {
-			especialidadService.guardarEspecialidad(especialidad);
+			especialidadService.guardar(especialidad);
 			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.CREATED.value(), null, especialidad);
 			return ResponseEntity.status(HttpStatus.CREATED).body(response);			
 		}			
@@ -69,7 +69,7 @@ public class EspecialidadController {
 	@PutMapping	
 	public ResponseEntity<APIResponse<Especialidad>> modificarEspecialidad(@RequestBody Especialidad especialidad) {
 		if(this.existe(especialidad.getId())) {
-			especialidadService.guardarEspecialidad(especialidad);
+			especialidadService.guardar(especialidad);
 			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.OK.value(), null, especialidad);
 			return ResponseEntity.status(HttpStatus.OK).body(response);
 		}else {
@@ -85,7 +85,7 @@ public class EspecialidadController {
 	@DeleteMapping("/{id}")	
 	public ResponseEntity<APIResponse<Especialidad>> eliminarEspecialidad(@PathVariable("id") Integer id) {
 		if(this.existe(id)) {
-			especialidadService.eliminarEspecialidad(id);
+			especialidadService.eliminar(id);
 			List<String> messages = new ArrayList<>();
 			messages.add("La especialidad que figura en el cuerpo ha sido eliminada") ;			
 			APIResponse<Especialidad> response = new APIResponse<Especialidad>(HttpStatus.OK.value(), messages, null);
@@ -104,7 +104,7 @@ public class EspecialidadController {
 		if(id == null) {
 			return false;
 		}else{
-			Especialidad especialidad = especialidadService.obtenerEspecialidadPorId(id);
+			Especialidad especialidad = especialidadService.obtenerPorId(id);
 			if(especialidad == null) {
 				return false;				
 			}else {

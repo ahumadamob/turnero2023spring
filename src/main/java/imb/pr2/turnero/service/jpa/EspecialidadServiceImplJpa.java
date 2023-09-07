@@ -18,25 +18,25 @@ public class EspecialidadServiceImplJpa implements IEspecialidadService {
 	EspecialidadRepository repo;
 
 	@Override
-	public List<Especialidad> obtenerTodasLasEspecialidades() {
+	public List<Especialidad> obtenerTodas() {
 		
 		return repo.findAll();
 	}
 	
 	@Override
-	public void guardarEspecialidad(Especialidad especialidad) {
+	public void guardar(Especialidad especialidad) {
 		repo.save(especialidad);
 		
 	}
 
 	 @Override
-	    public Especialidad obtenerEspecialidadPorId(Integer id) {
+	    public Especialidad obtenerPorId(Integer id) {
 	        Optional<Especialidad> optional = repo.findById(id);
 	        return optional.orElse(null);
 	    }
 
 	@Override
-	public void eliminarEspecialidad(Integer id) {
+	public void eliminar(Integer id) {
 		repo.deleteById(id);				
 	}
 
