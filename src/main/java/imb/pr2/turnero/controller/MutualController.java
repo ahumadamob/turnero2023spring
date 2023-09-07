@@ -29,21 +29,21 @@ public class MutualController {
 	IMutualService mutualService;
 	
 	@GetMapping
-	public ResponseEntity<APIResponse<List<Mutual>>> mostrarTodos() {
-		APIResponse<List<Mutual>> response = new APIResponse<List<Mutual>>(200, null, mutualService.buscarMutual());
+	public ResponseEntity<APIResponse<List<Mutual>>> mostrarTodasLasMutuales() {
+		APIResponse<List<Mutual>> response = new APIResponse<List<Mutual>>(200, null, mutualService.obtenerTodasLasMutuales());
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	@GetMapping("/{idMutual}")
-	public ResponseEntity<APIResponse<Mutual>> mostrarMutualPorId(@PathVariable("idMutual") Integer idMutual) {
-		if(this.existe(idMutual)) {
-			Mutual mutual = mutualService.buscarMutualPorId(idMutual);
+	@GetMapping("/{id}")
+	public ResponseEntity<APIResponse<Mutual>> mostrarMutualPorId(@PathVariable("id") Integer id) {
+		if(this.existe(id)) {
+			Mutual mutual = mutualService.obtenerMutualPorId(id);
 			APIResponse<Mutual> response = new APIResponse<Mutual>(HttpStatus.OK.value(), null, mutual);
 			return ResponseEntity.status(HttpStatus.OK).body(response);
 		} else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No se encontró la Mutual con id = " + idMutual.toString());
-			messages.add("Modifique el parámetro ingresado.");
+			messages.add("No se encontró la mutual con id = " + id.toString());
+			messages.add("Revise nuevamente el parámetro.");
 			APIResponse<Mutual> response = new APIResponse<Mutual>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
@@ -51,10 +51,10 @@ public class MutualController {
 	
 	@PostMapping
 	public ResponseEntity<APIResponse<Mutual>> crearMutual(@RequestBody Mutual mutual) {
-		if(this.existe(mutual.getIdMutual())) {
+		if(this.existe(mutual.getId())) {
 			List<String> messages = new ArrayList<>();
-			messages.add("Ya existe una mutual con el ID = " + mutual.getIdMutual().toString());
-			messages.add("Para actualizar utilice el verbo PUT");
+			messages.add("Ya existe una mutual con el id = " + mutual.getId().toString());
+			messages.add("Para actualizar utilice el verbo PUT.");
 			APIResponse<Mutual> response = new APIResponse<Mutual>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		} else {
@@ -66,42 +66,41 @@ public class MutualController {
 	
 	@PutMapping
 	public ResponseEntity<APIResponse<Mutual>> modificarMutual(@RequestBody Mutual mutual) {
-		if(this.existe(mutual.getIdMutual())) {
+		if(this.existe(mutual.getId())) {
 			mutualService.guardarMutual(mutual);
 			APIResponse<Mutual> response = new APIResponse<Mutual>(HttpStatus.OK.value(), null, mutual);
 			return ResponseEntity.status(HttpStatus.OK).body(response);
 		} else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No existe una mutual con el ID especificado.");
+			messages.add("No existe una mutual con el id especificado.");
 			messages.add("Para crear una nueva utilice el verbo POST.");
 			APIResponse<Mutual> response = new APIResponse<Mutual>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
 	}
 	
-	@DeleteMapping("/{idMutual}")
-	public ResponseEntity<APIResponse<Mutual>> eliminarMutual(@PathVariable("idMutual") Integer idMutual) {
-		if(this.existe(idMutual)) {
-			mutualService.eliminarMutual(idMutual);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<APIResponse<Mutual>> eliminarMutual(@PathVariable("id") Integer id) {
+		if(this.existe(id)) {
+			mutualService.eliminarMutual(id);
 			List<String> messages = new ArrayList<>();
-			messages.add("La mutual ha sido eliminada.");
+			messages.add("La mutual que figura en el cuerpo ha sido eliminada.");
 			APIResponse<Mutual> response = new APIResponse<Mutual>(HttpStatus.OK.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.OK).body(response);
 		} else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No existe una mutual con el ID = " + idMutual.toString());
+			messages.add("No existe una mutual con el id = " + id.toString());
 			APIResponse<Mutual> response = new APIResponse<Mutual>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
-		
 	}
 	
 	
-	private boolean existe(Integer idMutual) {
-		if(idMutual == null) {
+	private boolean existe(Integer id) {
+		if(id == null) {
 			return false;
 		}else{
-			Mutual mutual = mutualService.buscarMutualPorId(idMutual);
+			Mutual mutual = mutualService.obtenerMutualPorId(id);
 			if(mutual == null) {
 				return false;				
 			}else {
