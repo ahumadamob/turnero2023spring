@@ -1,7 +1,6 @@
 package imb.pr2.turnero.service.jpa;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -23,15 +22,10 @@ public class PacienteServiceImplJpa implements IPacienteService {
 		return repo.findAll();
 	}
 
-	@Override
-	public Paciente buscarPacientePorId(Integer id) {
-		Optional<Paciente> optional = repo.findById(id);
-		if(optional.isPresent()) {
-			return optional.get();
-		}else {
-			return null;
-		}		
-	}
+    @Override
+    public Paciente buscarPacientePorId(Integer id) {
+        return repo.findById(id).orElse(null);
+    }
 
 	@Override
 	public void guardarPaciente(Paciente paciente) {
