@@ -16,85 +16,85 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import imb.pr2.turnero.entity.Salas;
-import imb.pr2.turnero.service.ISalasService;
+import imb.pr2.turnero.entity.Sala;
+import imb.pr2.turnero.service.ISalaService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
 
 @RestController
-@RequestMapping("/api/v1/salas")
-public class SalasController {
+@RequestMapping("/api/v1/sala")
+public class SalaController {
 	
 	@Autowired
-	ISalasService salasService;
+	ISalaService salaService;
 	
 	@GetMapping
-	public ResponseEntity<APIResponse<List<Salas>>> mostrarTodos() {		
-		APIResponse<List<Salas>> response = new APIResponse<List<Salas>>(200, null, salasService.buscarSalas());
+	public ResponseEntity<APIResponse<List<Sala>>> mostrarTodasLasSalas() {		
+		APIResponse<List<Sala>> response = new APIResponse<List<Sala>>(200, null, salaService.mostrarTodos());
 		return ResponseEntity.status(HttpStatus.OK).body(response);	
 		
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<APIResponse<Salas>> mostrarSalasPorId(@PathVariable("id") Integer id) {
+	public ResponseEntity<APIResponse<Sala>> mostrarSalaPorId(@PathVariable("id") Integer id) {
 		if(this.existe(id)) {
-			Salas salas = salasService.buscarSalasPorId(id);
-			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.OK.value(), null, salas);
+			Sala sala = salaService.mostrarPorId(id);
+			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.OK.value(), null, sala);
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
 		}else {
 			List<String> messages = new ArrayList<>();
 			messages.add("No se encontró la Sala con id = " + id.toString());
 			messages.add("Revise nuevamente el parámetro");
-			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.BAD_REQUEST.value(), messages, null);
+			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
 		}
 	
 	}
 	
 	@PostMapping
-	public ResponseEntity<APIResponse<Salas>> crearSalas(@RequestBody Salas salas) {
-		if(this.existe(salas.getIdSalas())) {
+	public ResponseEntity<APIResponse<Sala>> crearSala(@RequestBody Sala sala) {
+		if(this.existe(sala.getId())) {
 			List<String> messages = new ArrayList<>();
-			messages.add("Ya existe una sala con el ID = " + salas.getIdSalas().toString());
+			messages.add("Ya existe una sala con el ID = " + sala.getId().toString());
 			messages.add("Para actualizar utilice el verbo PUT");
-			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.BAD_REQUEST.value(), messages, null);
+			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}else {
-			salasService.guardarSalas(salas);
-			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.CREATED.value(), null, salas);
+			salaService.guardar(sala);
+			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.CREATED.value(), null, sala);
 			return ResponseEntity.status(HttpStatus.CREATED).body(response);			
 		}			
 	}
 	
 	@PutMapping	
-	public ResponseEntity<APIResponse<Salas>> modificarSalas(@RequestBody Salas salas) {
-		if(this.existe(salas.getIdSalas())) {
-			salasService.guardarSalas(salas);
-			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.OK.value(), null, salas);
+	public ResponseEntity<APIResponse<Sala>> modificarSala(@RequestBody Sala sala) {
+		if(this.existe(sala.getId())) {
+			salaService.guardar(sala);
+			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.OK.value(), null, sala);
 			return ResponseEntity.status(HttpStatus.OK).body(response);
 		}else {
 			List<String> messages = new ArrayList<>();
 			messages.add("No existe una sala con el ID especificado");
 			messages.add("Para crear una nueva utilice el verbo POST");
-			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.BAD_REQUEST.value(), messages, null);
+			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		}
 
 	}
 	
 	@DeleteMapping("/{id}")	
-	public ResponseEntity<APIResponse<Salas>> eliminarSalas(@PathVariable("id") Integer id) {
+	public ResponseEntity<APIResponse<Sala>> eliminarSala(@PathVariable("id") Integer id) {
 		if(this.existe(id)) {
-			salasService.eliminarSalas(id);
+			salaService.eliminar(id);
 			List<String> messages = new ArrayList<>();
 			messages.add("La Sala que figura en el cuerpo ha sido eliminada") ;			
-			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.OK.value(), messages, null);
+			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.OK.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
 		}else {
 			List<String> messages = new ArrayList<>();
 			messages.add("No existe una sala con el ID = " + id.toString());
-			APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.BAD_REQUEST.value(), messages, null);
+			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
 		}
 		
@@ -105,8 +105,8 @@ public class SalasController {
 		if(id == null) {
 			return false;
 		}else{
-			Salas salas = salasService.buscarSalasPorId(id);
-			if(salas == null) {
+			Sala sala = salaService.mostrarPorId(id);
+			if(sala == null) {
 				return false;				
 			}else {
 				return true;
@@ -121,10 +121,10 @@ public class SalasController {
 		}
 
 		
-		APIResponse<Salas> response = new APIResponse<Salas>(HttpStatus.BAD_REQUEST.value(), errors, null);
+		APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.BAD_REQUEST.value(), errors, null);
 		return ResponseEntity.badRequest().body(response);
 	}
-	}
+}
 
 	
 	

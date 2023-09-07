@@ -7,37 +7,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import imb.pr2.turnero.entity.Salas;
-import imb.pr2.turnero.repository.SalasRepository;
-import imb.pr2.turnero.service.ISalasService;
+import imb.pr2.turnero.entity.Sala;
+import imb.pr2.turnero.repository.SalaRepository;
+import imb.pr2.turnero.service.ISalaService;
 
 @Service
 @Primary
-public class SalasServiceImplJpa implements ISalasService {
+public class SalaServiceImplJpa implements ISalaService {
 	
 	@Autowired
-	SalasRepository repo;
+	SalaRepository repo;
 
 	@Override
-	public List<Salas> buscarSalas() {		
+	public List<Sala> mostrarTodos() {		
 		return repo.findAll();
 
 	}
 
 	@Override
-	public void guardarSalas(Salas salas) {
-		repo.save(salas);
+	public void guardar(Sala sala) {
+		repo.save(sala);
 		
 	}
 
 	@Override
-	public void eliminarSalas(Integer id) {
+	public void eliminar(Integer id) {
 		repo.deleteById(id);		
 	}
 
 	@Override
-	public Salas buscarSalasPorId(Integer id) {
-		Optional<Salas> optional = repo.findById(id);
+	public Sala mostrarPorId(Integer id) {
+		Optional<Sala> optional = repo.findById(id);
 		if(optional.isPresent()) {
 			return optional.get();
 		}else {
