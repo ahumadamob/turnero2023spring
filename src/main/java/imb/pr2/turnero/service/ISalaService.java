@@ -2,13 +2,13 @@ package imb.pr2.turnero.service;
 
 import java.util.List;
 
-import imb.pr2.turnero.entity.Salas;
+import imb.pr2.turnero.entity.Sala;
 
-public interface ISalasService {
-	public Salas buscarSalasPorId(Integer id);
-	public void guardarSalas(Salas salas);
-	public void eliminarSalas(Integer id);
-	public List<Salas> buscarSalas();
+public interface ISalaService {
+	public Sala mostrarPorId(Integer id);
+	public void guardar(Sala sala);
+	public void eliminar(Integer id);
+	public List<Sala> mostrarTodos();
 	
 	
 }
