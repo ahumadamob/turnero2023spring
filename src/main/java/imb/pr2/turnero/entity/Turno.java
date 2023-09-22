@@ -23,7 +23,7 @@ public class Turno {
 		@Future(message = "La fecha y hora ingresadas ya sucedieron.")
 		private LocalDateTime fechaYHora;
 		@NotNull(message = "El id del paciente no puede estar vacío.")
-		@Min(value=1, message="El id del paciente debe ser mayor que 1.")
+		@Min(value=1, message= "El id del paciente debe ser mayor que 1.")
 
 	    @ManyToOne
 	    @JoinColumn(name = "pacienteId")
@@ -37,6 +37,7 @@ public class Turno {
 	    @JoinColumn(name = "profesionalId")
 	    private Profesional profesional;
 		
+	    
 		public Integer getIdTurno() {
 			return idTurno;
 		}
