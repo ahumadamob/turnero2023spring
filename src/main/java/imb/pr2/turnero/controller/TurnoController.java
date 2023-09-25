@@ -73,7 +73,7 @@ public class TurnoController {
 			return ResponseEntity.status(HttpStatus.OK).body(response);
 		}else {
 			List<String> messages = new ArrayList<>();
-			messages.add("No existe el turno con ID " + turno.getId().toString());
+			messages.add("No existe el turno con ID " + turno.getId());
 			messages.add("Para crear uno nuevo utilice el verbo POST.");
 			APIResponse<Turno> response = new APIResponse<Turno>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
