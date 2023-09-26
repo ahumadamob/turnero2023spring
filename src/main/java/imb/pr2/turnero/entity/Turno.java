@@ -23,20 +23,21 @@ public class Turno {
 		@Future(message = "La fecha y hora ingresadas ya sucedieron.")
 		private LocalDateTime fechaYHora;
 		@NotNull(message = "El id del paciente no puede estar vacío.")
-		@Min(value=1, message="El id del paciente debe ser mayor que 1.")
+		@Min(value=1, message= "El id del paciente debe ser mayor que 1.")
 
 	    @ManyToOne
-	    @JoinColumn(name = "id_paciente")
+	    @JoinColumn(name = "pacienteId")
 	    private Paciente paciente;
 	    
 	    @ManyToOne
-	    @JoinColumn(name = "id_salas")
-	    private Salas salas;
+	    @JoinColumn(name = "salaId")
+	    private Salas sala;
 	    
 	    @ManyToOne
-	    @JoinColumn(name = "id_profesional")
+	    @JoinColumn(name = "profesionalId")
 	    private Profesional profesional;
 		
+	    
 		public Integer getIdTurno() {
 			return idTurno;
 		}
@@ -62,10 +63,10 @@ public class Turno {
 			this.paciente = paciente;
 		}
 		public Salas getSalas() {
-			return salas;
+			return sala;
 		}
 		public void setSalas(Salas salas) {
-			this.salas = salas;
+			this.sala = salas;
 		}
 		public Profesional getProfesional() {
 			return profesional;
