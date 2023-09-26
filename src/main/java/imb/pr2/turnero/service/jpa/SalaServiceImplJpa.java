@@ -34,6 +34,11 @@ public class SalaServiceImplJpa implements ISalaService {
 	public void eliminar(Integer id) {
 		repo.deleteById(id);		
 	}
+	
+	@Override
+	public boolean exist(Integer id) {
+		return id != null && repo.existsById(id);
+	}
 
 	@Override
 	public Sala mostrarPorId(Integer id) {

@@ -17,24 +17,31 @@ public class MutualServiceImplJpa implements IMutualService {
 	MutualRepository repo;
 	
 	@Override
-	public List<Mutual> obtenerTodasLasMutuales() {
+	public List<Mutual> obtenerTodas() {
 		return repo.findAll();
 	}
 
 	@Override
-    public Mutual obtenerMutualPorId(Integer id) {
+    public Mutual obtenerPorId(Integer id) {
         Optional<Mutual> optional = repo.findById(id);
         return optional.orElse(null);
     }
 
 	@Override
-	public void guardarMutual(Mutual mutual) {
+	public void guardar(Mutual mutual) {
 		repo.save(mutual);
 	}
 
-	@Override
-	public void eliminarMutual(Integer id) {
-		repo.deleteById(id);
-	}
 	
+	@Override
+	public boolean exists(Integer id) {
+	return repo.existsById(id);
+	}
+
+	@Override
+	public void eliminar(Integer id) {
+	repo.deleteById(id);
+	}
+
+
 }

@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -17,38 +16,33 @@ public class Turno {
 	
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
-		private Integer idTurno;
-		private Integer numeroTurno;
+		private Integer id;
+		private Integer numero;
 		@NotNull(message = "La fecha y hora no pueden estar vacías.")
 		@Future(message = "La fecha y hora ingresadas ya sucedieron.")
 		private LocalDateTime fechaYHora;
-		@NotNull(message = "El id del paciente no puede estar vacío.")
-		@Min(value=1, message= "El id del paciente debe ser mayor que 1.")
-
-	    @ManyToOne
-	    @JoinColumn(name = "pacienteId")
-	    private Paciente paciente;
-	    
-	    @ManyToOne
-	    @JoinColumn(name = "salaId")
-	    private Salas sala;
-	    
-	    @ManyToOne
-	    @JoinColumn(name = "profesionalId")
-	    private Profesional profesional;
-		
-	    
-		public Integer getIdTurno() {
-			return idTurno;
+		@NotNull(message = "Debe ingresar un paciente.")
+		@ManyToOne
+		@JoinColumn(name="pacienteId")
+		private Paciente paciente;
+		@ManyToOne
+		@JoinColumn(name="salaId")
+		private Sala sala;
+		@NotNull(message = "Debe ingresar un profesional.")
+		@ManyToOne
+		@JoinColumn(name="profesionalId")
+		private Profesional profesional;
+		public Integer getId() {
+			return id;
 		}
-		public void setIdTurno(Integer idTurno) {
-			this.idTurno = idTurno;
+		public void setId(Integer id) {
+			this.id = id;
 		}
-		public Integer getNumeroTurno() {
-			return numeroTurno;
+		public Integer getNumero() {
+			return numero;
 		}
-		public void setNumeroTurno(Integer numeroTurno) {
-			this.numeroTurno = numeroTurno;
+		public void setNumero(Integer numero) {
+			this.numero = numero;
 		}
 		public LocalDateTime getFechaYHora() {
 			return fechaYHora;
@@ -62,11 +56,11 @@ public class Turno {
 		public void setPaciente(Paciente paciente) {
 			this.paciente = paciente;
 		}
-		public Salas getSalas() {
+		public Sala getSala() {
 			return sala;
 		}
-		public void setSalas(Salas salas) {
-			this.sala = salas;
+		public void setSala(Sala sala) {
+			this.sala = sala;
 		}
 		public Profesional getProfesional() {
 			return profesional;
@@ -74,6 +68,9 @@ public class Turno {
 		public void setProfesional(Profesional profesional) {
 			this.profesional = profesional;
 		}
+		
+		
+		
 			
 	}
 

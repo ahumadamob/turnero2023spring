@@ -19,18 +19,18 @@ public class TurnoServiceImplJpa implements ITurnoService{
 	TurnoRepository repo;
 
 	@Override
-	public List<Turno> buscarTurno() {		
+	public List<Turno> mostrarTodo() {		
 		return repo.findAll();
 	}
 
 	@Override
-	public void guardarTurno(Turno turno) {
+	public void guardar(Turno turno) {
 		repo.save(turno);
 		
 	}
 
 	@Override
-	public void eliminarTurno(Integer id) {
+	public void eliminar(Integer id) {
 		repo.deleteById(id);		
 	}
 
@@ -39,5 +39,10 @@ public class TurnoServiceImplJpa implements ITurnoService{
         return repo.findById(id).orElse(null);
     }	
 	
+
+	@Override
+	public boolean exists(Integer id) {
+	    return id != null && repo.existsById(id);
+	}
 
 }
