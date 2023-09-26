@@ -9,6 +9,6 @@ public interface ISalaService {
 	public void guardar(Sala sala);
 	public void eliminar(Integer id);
 	public List<Sala> mostrarTodos();
-	
+	public boolean exist(Integer id);
 	
 }
