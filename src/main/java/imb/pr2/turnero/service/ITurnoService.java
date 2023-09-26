@@ -6,9 +6,10 @@ import imb.pr2.turnero.entity.Turno;
 
 public interface ITurnoService {
 	
-	public List<Turno> buscarTurno ();
-	public Turno buscarTurnoPorId (Integer idTurno);
-	public void guardarTurno (Turno turno);
-	public void eliminarTurno (Integer id);
+	public List<Turno> mostrarTodo ();
+	public Turno mostrarPorId (Integer id);
+	public void guardar (Turno turno);
+	public void eliminar (Integer id);
+	public boolean exists(Integer id);
 
 }

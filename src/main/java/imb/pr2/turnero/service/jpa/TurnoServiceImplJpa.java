@@ -19,29 +19,34 @@ public class TurnoServiceImplJpa implements ITurnoService{
 	TurnoRepository repo;
 
 	@Override
-	public List<Turno> buscarTurno() {		
+	public List<Turno> mostrarTodo() {		
 		return repo.findAll();
 	}
 
 	@Override
-	public void guardarTurno(Turno turno) {
+	public void guardar(Turno turno) {
 		repo.save(turno);
 		
 	}
 
 	@Override
-	public void eliminarTurno(Integer id) {
+	public void eliminar(Integer id) {
 		repo.deleteById(id);		
 	}
 
 	@Override
-	public Turno buscarTurnoPorId(Integer id) {
+	public Turno mostrarPorId(Integer id) {
 		Optional<Turno> optional = repo.findById(id);
 		if(optional.isPresent()) {
 			return optional.get();
 		}else{
 			return null;
 		}		
+	}
+
+	@Override
+	public boolean exists(Integer id) {
+	    return id != null && repo.existsById(id);
 	}
 
 }
