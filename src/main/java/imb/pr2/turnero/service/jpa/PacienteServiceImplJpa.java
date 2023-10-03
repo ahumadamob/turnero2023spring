@@ -14,6 +14,10 @@ import imb.pr2.turnero.service.IPacienteService;
 @Primary
 public class PacienteServiceImplJpa implements IPacienteService {
 	
+	public boolean exists(Integer id) {
+		return repo.existsById(id);
+	}
+	
 	@Autowired
 	PacienteRepository repo;
 
