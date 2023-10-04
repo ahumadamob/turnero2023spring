@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -16,6 +18,10 @@ public class Especialidad {
 	@NotBlank(message = "El nombre de la especialidad no puede estar vacío")
 	@Size(max = 40, message = "El nombre de la especialidad no debe superar los 40 caracteres")
 	private String nombre;
+	
+	@ManyToOne
+	@JoinColumn(name="profesionalId")
+	private Profesional profesional;
 	
 	public Integer getId() {
 		return id;
