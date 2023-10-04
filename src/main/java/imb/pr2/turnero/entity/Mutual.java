@@ -14,17 +14,17 @@ public class Mutual {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer idMutual;
 	@NotBlank(message = "El nombre de la mutual no puede estar vacío.")
 	@Size(max = 20, message = "El nombre de la mutual no debe exceder los 20 caracteres.")
 	private String nombre;
 	private String beneficios;
 	
 	public Integer getId() {
-		return id;
+		return idMutual;
 	}
 	public void setId(Integer id) {
-		this.id = id;
+		this.idMutual = id;
 	}
 	public String getNombre() {
 		return nombre;
