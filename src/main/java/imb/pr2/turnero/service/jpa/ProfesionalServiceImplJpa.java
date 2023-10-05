@@ -42,5 +42,10 @@ public class ProfesionalServiceImplJpa implements IProfesionalService {
 		Optional<Profesional> optional = repo.findById(id);
 		return optional.orElse(null);	
 	}
+	
+	@Override
+	public boolean exists(Integer id) {
+		return repo.existsById(id);
+	}
 
 }

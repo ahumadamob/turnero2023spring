@@ -37,7 +37,7 @@ public class ProfesionalController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<APIResponse<Profesional>> buscarProfesionalPorId(@PathVariable("id") Integer id) {
-		if(this.existe(id)) {
+		if(profesionalService.exists(id)) {
 			Profesional profesional = profesionalService.buscarPorId(id);
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.OK.value(), null, profesional);
 			return ResponseEntity.status(HttpStatus.OK).body(response);	
@@ -53,9 +53,9 @@ public class ProfesionalController {
 	
 	@PostMapping
 	public ResponseEntity<APIResponse<Profesional>> crearProfesional(@RequestBody Profesional profesional) {
-		if(this.existe(profesional.getIdProfesional())) {
+		if(profesionalService.exists(profesional.getId())) {
 			List<String> messages = new ArrayList<>();
-			messages.add("Ya existe un Profesional con el ID = " + profesional.getIdProfesional().toString());
+			messages.add("Ya existe un Profesional con el ID = " + profesional.getId().toString());
 			messages.add("Para actualizar utilice el verbo PUT");
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.BAD_REQUEST.value(), messages, null);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
@@ -68,7 +68,7 @@ public class ProfesionalController {
 	
 	@PutMapping	
 	public ResponseEntity<APIResponse<Profesional>> modificarProfesional(@RequestBody Profesional profesional) {
-		if(this.existe(profesional.getIdProfesional())) {
+		if(profesionalService.exists(profesional.getId())) {
 			profesionalService.guardar(profesional);
 			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.OK.value(), null, profesional);
 			return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -84,7 +84,7 @@ public class ProfesionalController {
 	
 	@DeleteMapping("/{id}")	
 	public ResponseEntity<APIResponse<Profesional>> eliminarProfesional(@PathVariable("id") Integer id) {
-		if(this.existe(id)) {
+		if(profesionalService.exists(id)) {
 			profesionalService.eliminar(id);
 			List<String> messages = new ArrayList<>();
 			messages.add("El Profesional que figura en el cuerpo ha sido eliminada") ;			
@@ -100,18 +100,7 @@ public class ProfesionalController {
 	}
 	
 	
-	private boolean existe(Integer id) {
-		if(id == null) {
-			return false;
-		}else{
-			Profesional profesional = profesionalService.buscarPorId(id);
-			if(profesional == null) {
-				return false;				
-			}else {
-				return true;
-			}
-		}
-	}
+	
 	
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<APIResponse<?>> handleConstraintViolationException(ConstraintViolationException ex){

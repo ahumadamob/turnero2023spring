@@ -9,6 +9,6 @@ public interface IProfesionalService {
 	public Profesional buscarPorId(Integer id);
 	public void guardar(Profesional profesional);
 	public void eliminar(Integer id);
-	
+	public boolean exists(Integer id);
 }
 

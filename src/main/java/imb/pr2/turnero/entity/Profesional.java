@@ -13,7 +13,7 @@ import jakarta.validation.constraints.Size;
 public class Profesional {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer idProfesional;
+	private Integer id;
 	@NotBlank(message = "El nombre no puede estar vacío")
 	@Size(max = 60, message = "El nombre no debe superar los 60 caracteres")
 	private String nombreProfesional;
@@ -23,11 +23,11 @@ public class Profesional {
 	@JoinColumn(name="especialidadId")
 	private Especialidad especialidad;
 	
-	public Integer getIdProfesional() {
-		return idProfesional;
+	public Integer getId() {
+		return id;
 	}
-	public void setIdProfesional(Integer idProfesional) {
-		this.idProfesional = idProfesional;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getNombreProfesional() {
 		return nombreProfesional;
