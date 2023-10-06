@@ -45,7 +45,12 @@ public class ProfesionalServiceImplJpa implements IProfesionalService {
 	
 	@Override
 	public boolean exists(Integer id) {
-		return repo.existsById(id);
+		
+		if(id == null) {
+			return false;
+		}else {
+			return repo.existsById(id);
+		}
 	}
 
 }

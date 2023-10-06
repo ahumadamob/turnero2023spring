@@ -18,11 +18,9 @@ public class Profesional {
 	@Size(max = 60, message = "El nombre no debe superar los 60 caracteres")
 	private String nombreProfesional;
 	private String apellidoProfesional;
-	@NotBlank(message = "El nombre no puede estar vacío")
 	@ManyToOne
 	@JoinColumn(name="especialidadId")
 	private Especialidad especialidad;
-	
 	public Integer getId() {
 		return id;
 	}
@@ -41,11 +39,13 @@ public class Profesional {
 	public void setApellidoProfesional(String apellidoProfesional) {
 		this.apellidoProfesional = apellidoProfesional;
 	}
-	public Especialidad getEspecialidadId() {
+	public Especialidad getEspecialidad() {
 		return especialidad;
 	}
-	public void setEspecialidad(Especialidad idEspecialidad) {
-		this.especialidad = idEspecialidad;
+	public void setEspecialidad(Especialidad especialidad) {
+		this.especialidad = especialidad;
 	}
+	
+
 	
 }
