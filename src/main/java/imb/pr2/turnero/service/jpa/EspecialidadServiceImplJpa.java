@@ -40,5 +40,9 @@ public class EspecialidadServiceImplJpa implements IEspecialidadService {
 	public void eliminar(Integer id) {
 		repo.deleteById(id);				
 	}
+	
+	public boolean exists (Integer id) {
+		return repo.existsById(id);
+	}
 
 }
