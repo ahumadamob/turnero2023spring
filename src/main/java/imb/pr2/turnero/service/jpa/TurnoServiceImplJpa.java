@@ -35,7 +35,7 @@ public class TurnoServiceImplJpa implements ITurnoService{
 	}
 
 	@Override
-	public Turno buscarTurnoPorId(Integer id) {
+	public Turno mostrarPorId(Integer id) {
         return repo.findById(id).orElse(null);
     }	
 	
