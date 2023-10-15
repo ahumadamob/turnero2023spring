@@ -1,7 +1,6 @@
 package imb.pr2.turnero.service.jpa;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -19,14 +18,18 @@ public class TurnoServiceImplJpa implements ITurnoService{
 	TurnoRepository repo;
 
 	@Override
-	public List<Turno> mostrarTodo() {		
+	public List<Turno> buscarTodos() {		
 		return repo.findAll();
 	}
+	
+	@Override
+	public Turno buscarPorId(Integer id) {
+        return repo.findById(id).orElse(null);
+    }	
 
 	@Override
-	public void guardar(Turno turno) {
-		repo.save(turno);
-		
+	public Turno guardar(Turno turno) {
+		return repo.save(turno);
 	}
 
 	@Override
@@ -35,14 +38,8 @@ public class TurnoServiceImplJpa implements ITurnoService{
 	}
 
 	@Override
-	public Turno mostrarPorId(Integer id) {
-        return repo.findById(id).orElse(null);
-    }	
-	
-
-	@Override
-	public boolean exists(Integer id) {
-	    return id != null && repo.existsById(id);
+	public boolean existe(Integer id) {
+	    return (id == null) ? false: repo.existsById(id);
 	}
 
 }

@@ -19,10 +19,6 @@ public class Especialidad {
 	@Size(max = 40, message = "El nombre de la especialidad no debe superar los 40 caracteres")
 	private String nombre;
 	
-	@ManyToOne
-	@JoinColumn(name="profesionalId")
-	private Profesional profesional;
-	
 	public Integer getId() {
 		return id;
 	}
