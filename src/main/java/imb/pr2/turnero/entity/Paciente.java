@@ -35,12 +35,6 @@ public class Paciente {
 	@NotNull(message = "La fecha y hora no pueden estar vacías.")
 	@Past(message = "La fecha y hora ingresadas ya sucedieron.")
 	private LocalDate fechaNacimiento;
-	@Min(value=1, message="El id del paciente debe ser mayor que 1.")
-	private Integer idMutual;
-	
-	@ManyToOne
-	@JoinColumn(name = "idTurno")
-	private Turno turno;
 	
 	@ManyToOne
 	@JoinColumn(name = "mutualId")
@@ -81,12 +75,6 @@ public class Paciente {
 	}
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
-	}
-	public Integer getIdMutual() {
-		return idMutual;
-	}
-	public void setIdMutual(Integer idMutual) {
-		this.idMutual = idMutual;
 	}
 	
 	

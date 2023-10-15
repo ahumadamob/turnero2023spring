@@ -25,8 +25,8 @@ public class SalaServiceImplJpa implements ISalaService {
 	}
 
 	@Override
-	public void guardar(Sala sala) {
-		repo.save(sala);
+	public Sala guardar(Sala sala) {
+		return repo.save(sala);
 		
 	}
 
@@ -37,17 +37,13 @@ public class SalaServiceImplJpa implements ISalaService {
 	
 	@Override
 	public boolean exist(Integer id) {
-		return id != null && repo.existsById(id);
+		return (id == null)? false: repo.existsById(id);
 	}
 
 	@Override
 	public Sala mostrarPorId(Integer id) {
 		Optional<Sala> optional = repo.findById(id);
-		if(optional.isPresent()) {
-			return optional.get();
-		}else {
-			return null;
-		}		
+		return optional.orElse(null);		
 	}
 
 }

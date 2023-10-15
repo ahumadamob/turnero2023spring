@@ -1,10 +1,10 @@
 package imb.pr2.turnero.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import imb.pr2.turnero.entity.Sala;
 import imb.pr2.turnero.service.ISalaService;
-import jakarta.validation.ConstraintViolation;
+
 import jakarta.validation.ConstraintViolationException;
 
 
@@ -30,9 +30,13 @@ public class SalaController {
 	ISalaService salaService;
 	
 	@GetMapping
-	public ResponseEntity<APIResponse<List<Sala>>> mostrarTodasLasSalas() {		
-		APIResponse<List<Sala>> response = new APIResponse<List<Sala>>(200, null, salaService.mostrarTodos());
-		return ResponseEntity.status(HttpStatus.OK).body(response);	
+	public ResponseEntity<APIResponse<List<Sala>>> mostrarTodasLasSalas() {
+		List<Sala> sala = salaService.mostrarTodos();
+		if(sala.isEmpty()) {
+			return ResponseUtil.notFound("No se encontraron salas");
+		}else {
+			return ResponseUtil.success(sala);
+		}
 		
 	}
 	
@@ -40,64 +44,39 @@ public class SalaController {
 	public ResponseEntity<APIResponse<Sala>> mostrarSalaPorId(@PathVariable("id") Integer id) {
 		if(this.existe(id)) {
 			Sala sala = salaService.mostrarPorId(id);
-			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.OK.value(), null, sala);
-			return ResponseEntity.status(HttpStatus.OK).body(response);	
+			return ResponseUtil.success(sala);	
 		}else {
-			List<String> messages = new ArrayList<>();
-			messages.add("No se encontró la Sala con id = " + id.toString());
-			messages.add("Revise nuevamente el parámetro");
-			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.BAD_REQUEST.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
+			return ResponseUtil.notFound("No se encontraron salas con el id especificado");			
 		}
 	
 	}
 	
 	@PostMapping
 	public ResponseEntity<APIResponse<Sala>> crearSala(@RequestBody Sala sala) {
-		if(this.existe(sala.getId())) {
-			List<String> messages = new ArrayList<>();
-			messages.add("Ya existe una sala con el ID = " + sala.getId().toString());
-			messages.add("Para actualizar utilice el verbo PUT");
-			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.BAD_REQUEST.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-		}else {
-			salaService.guardar(sala);
-			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.CREATED.value(), null, sala);
-			return ResponseEntity.status(HttpStatus.CREATED).body(response);			
-		}			
+		
+		return (this.existe(sala.getId())) ? ResponseUtil.badRequest("Ya existe una sala creada") 
+				: ResponseUtil.created(salaService.guardar(sala));		
 	}
 	
-	@PutMapping	
-	public ResponseEntity<APIResponse<Sala>> modificarSala(@RequestBody Sala sala) {
-		if(this.existe(sala.getId())) {
-			salaService.guardar(sala);
-			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.OK.value(), null, sala);
-			return ResponseEntity.status(HttpStatus.OK).body(response);
+	@PutMapping	//Esta notacion permite manejar las solicitudes HTTP PUT en una ruta especifica, en este caso:localhost:8080/api/v1/sala.
+	public ResponseEntity<APIResponse<Sala>> modificarSala(@RequestBody Sala sala) { //Esta sera la firma del metodo. Recibe el objeto "sala" en el cuerpo de la solicitud utilizando la notacion "@RequestBody" y nos devuelve um "ResponseEntity" que contendra un objeto de respuesta "APIResponse" que envuelve un objeto "sala".
+		if(this.existe(sala.getId())) { //Se verifica si sala con el Id proporcionado en el objeto "sala" ya existe.
+			return ResponseUtil.created(salaService.guardar(sala)); //Si sala con el Id especificado existe, se ejecuta el bloque el cual guardara los cambios realizados.
 		}else {
-			List<String> messages = new ArrayList<>();
-			messages.add("No existe una sala con el ID especificado");
-			messages.add("Para crear una nueva utilice el verbo POST");
-			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.BAD_REQUEST.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+			return ResponseUtil.notFound("No se encontraron salas con el id especificado");	//Si no existe, se ejecuta el bloque el cual devolvera un eror 404 y un mensaje que nos indicara que no se han encontrado salas con el Id especificado.
 		}
 
 	}
 	
 	@DeleteMapping("/{id}")	
-	public ResponseEntity<APIResponse<Sala>> eliminarSala(@PathVariable("id") Integer id) {
-		if(this.existe(id)) {
-			salaService.eliminar(id);
-			List<String> messages = new ArrayList<>();
-			messages.add("La Sala que figura en el cuerpo ha sido eliminada") ;			
-			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.OK.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.OK).body(response);	
-		}else {
-			List<String> messages = new ArrayList<>();
-			messages.add("No existe una sala con el ID = " + id.toString());
-			APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.BAD_REQUEST.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
-		}
-		
+	public ResponseEntity<APIResponse<String>> eliminarSala(@PathVariable("id") Integer id) {
+	    if(salaService.exist(id)){
+	    	salaService.eliminar(id);
+	        return ResponseUtil.success("La sala fue elimada con exito"); 
+	    }else {
+	        return ResponseUtil.badRequest("No existe una sala con el Id especificado");
+	    }
+	
 	}
 	
 	
@@ -114,16 +93,10 @@ public class SalaController {
 		}
 	}
 	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<APIResponse<?>> handleConstrainViolationException(ConstraintViolationException ex){
-		List<String> errors = new ArrayList<>();
-		for(ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-			errors.add(violation.getMessage());
-		}
-
-		
-		APIResponse<Sala> response = new APIResponse<Sala>(HttpStatus.BAD_REQUEST.value(), errors, null);
-		return ResponseEntity.badRequest().body(response);
+	public ResponseEntity<APIResponse<Object>> handleConstraintViolationException(ConstraintViolationException ex){
+		return ResponseUtil.handleConstraintException(ex);
 	}
+	
 }
 
 	
