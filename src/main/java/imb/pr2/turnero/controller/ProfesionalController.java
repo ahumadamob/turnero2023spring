@@ -41,19 +41,20 @@ public class ProfesionalController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<APIResponse<Profesional>> buscarProfesionalPorId(@PathVariable("id") Integer id) {
-		return (profesionalService.exists(id) ? ResponseUtil.badRequest("No se encontro la especialidad")
-				: ResponseUtil.success(profesionalService.buscarPorId(id)));
+		return (profesionalService.exists(id) ? ResponseUtil.success(profesionalService.buscarPorId(id))
+				: ResponseUtil.notFound("No se encontro el profesional"));
 	}
 	
 	@PostMapping
 	public ResponseEntity<APIResponse<Profesional>> crearProfesional(@RequestBody Profesional profesional) {
-		return (profesionalService.exists(profesional.getId()))? ResponseUtil.badRequest("Ya Existe un Profesor") : ResponseUtil.created(profesionalService.guardar(profesional));			
+		return (profesionalService.exists(profesional.getId()))? ResponseUtil.badRequest("Ya Existe un Profesor")
+				: ResponseUtil.created(profesionalService.guardar(profesional));			
 	}
 	
 	@PutMapping	
 	public ResponseEntity<APIResponse<Profesional>> modificarProfesional(@RequestBody Profesional profesional) {
-		return (profesionalService.exists(profesional.getId()))? ResponseUtil.badRequest("No existe un profesional con el ID especificado"): ResponseUtil.created(profesionalService.guardar(profesional));
-
+		return (profesionalService.exists(profesional.getId()))? ResponseUtil.created(profesionalService.guardar(profesional))
+				:ResponseUtil.notFound("No existe un profesional con el ID identificado");
 	}
 	
 	@DeleteMapping("/{id}")	
