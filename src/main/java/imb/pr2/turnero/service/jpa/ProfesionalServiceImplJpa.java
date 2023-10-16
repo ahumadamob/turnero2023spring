@@ -27,8 +27,8 @@ public class ProfesionalServiceImplJpa implements IProfesionalService {
 	}
 
 	@Override
-	public void guardar(Profesional profesional) {
-		repo.save(profesional);
+	public Profesional guardar(Profesional profesional) {
+		return repo.save(profesional);
 		
 	}
 
@@ -45,12 +45,7 @@ public class ProfesionalServiceImplJpa implements IProfesionalService {
 	
 	@Override
 	public boolean exists(Integer id) {
-		
-		if(id == null) {
-			return false;
-		}else {
-			return repo.existsById(id);
-		}
+		return(id == null)? false : repo.existsById(id);
 	}
 
 }
