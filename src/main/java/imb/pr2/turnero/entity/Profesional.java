@@ -22,13 +22,12 @@ public class Profesional {
 	
 	private String apellidoProfesional;
 	
+	@ManyToOne
+	private Turno turno;
+	
 	@OneToOne
 	@JoinColumn(name="especialidadId")
 	private Especialidad especialidad;
-	
-	@ManyToOne
-	@JoinColumn(name="turnoId")
-	private Turno turno;
 	
 	public Integer getId() {
 		return id;

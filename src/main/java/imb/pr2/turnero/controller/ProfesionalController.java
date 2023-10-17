@@ -39,8 +39,12 @@ public class ProfesionalController {
 		}
 	}
 	
+	
+	// Esta es una anotacion que indica que responde a una solicitud http con un marcador de posicion (ID)
 	@GetMapping("/{id}")
+	// Este metodo recibe un parametro id que proviene de la url gracias al parametro @PathVariable("id")
 	public ResponseEntity<APIResponse<Profesional>> buscarProfesionalPorId(@PathVariable("id") Integer id) {
+		//En este ternario Primero se busca al profesional en la base de dato para ver si existe, si existe retorna al profesional que coincida con el id sino devuelve un msj 
 		return (profesionalService.exists(id) ? ResponseUtil.success(profesionalService.buscarPorId(id))
 				: ResponseUtil.notFound("No se encontro el profesional"));
 	}
@@ -58,10 +62,10 @@ public class ProfesionalController {
 	}
 	
 	@DeleteMapping("/{id}")	
-	public ResponseEntity<APIResponse<Profesional>> eliminarProfesional(@PathVariable("id") Integer id) {
+	public ResponseEntity<APIResponse<String>> eliminarProfesional(@PathVariable("id") Integer id) {
 	    if(profesionalService.exists(id)){
 	    	profesionalService.eliminar(id);
-	        return ResponseUtil.badRequest("El profesional fue eliminado con exito"); 
+	        return ResponseUtil.success("El Profesional fue eliminado");
 	    }else {
 	        return ResponseUtil.badRequest("No existe una Profesional con el Id especificado");
 	    }
