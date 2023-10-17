@@ -49,9 +49,13 @@ public class TurnoController {
 	
 	@PutMapping	
 	public ResponseEntity<APIResponse<Turno>> modificarTurno(@RequestBody Turno turno) {
-		return (turnoService.existe(turno.getId()))
-				? ResponseUtil.created(turnoService.guardar(turno))
-				: ResponseUtil.badRequest("No existe un turno con id " + turno.getId().toString() + ".");
+		if (turnoService.existe(turno.getId())) {
+			return ResponseUtil.created(turnoService.guardar(turno));
+		} else if (turno.getId()==null) {
+			return ResponseUtil.badRequest("No ingresaste el id de ningún turno para modificarlo.");
+		} else {
+			return ResponseUtil.badRequest("No existe un turno con id " + turno.getId().toString() + ".");
+		}
 	}
 	
 	/* 
