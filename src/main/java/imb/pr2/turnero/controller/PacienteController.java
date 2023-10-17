@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import imb.pr2.turnero.entity.Paciente;
 import imb.pr2.turnero.service.IPacienteService;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
 @RestController
@@ -30,8 +29,12 @@ public class PacienteController {
 	
 	@GetMapping
 	public ResponseEntity<APIResponse<List<Paciente>>> mostrarTodos() {		
-		APIResponse<List<Paciente>> response = new APIResponse<List<Paciente>>(200, null, pacienteServicio.buscarPacientes());
-		return ResponseEntity.status(HttpStatus.OK).body(response);	
+		List<Paciente> pacientes = pacienteServicio.buscarPacientes();
+		if(pacientes.isEmpty()) {
+			return ResponseUtil.notFound("No se encontraron pacientes.");
+		} else {
+			return ResponseUtil.success(pacientes);
+		}
 	}
 	
 	@GetMapping("/{id}")
@@ -50,19 +53,16 @@ public class PacienteController {
 	
 	}
 	
+
+	/*
+	 *  El siguiente bloque maneja solicitudes POST para crear nuevos pacientes. Si ya existe un paciente con el mismo ID,
+	 *  se devuelve una respuesta de error con el código 400 (Bad Request). Si no existe un paciente con el mismo ID, se
+	 *  crea el nuevo paciente y se devuelve una respuesta con el código 201 (Created) que incluye el paciente creado.
+	 */
 	@PostMapping
 	public ResponseEntity<APIResponse<Paciente>> crearPaciente(@RequestBody Paciente paciente) {
-		if(this.existe(paciente.getId())) {
-			List<String> messages = new ArrayList<>();
-			messages.add("Ya existe una paciente con el ID = " + paciente.getId().toString());
-			messages.add("Para actualizar utilice el verbo PUT");
-			APIResponse<Paciente> response = new APIResponse<Paciente>(HttpStatus.BAD_REQUEST.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-		}else {
-			pacienteServicio.guardarPaciente(paciente);
-			APIResponse<Paciente> response = new APIResponse<Paciente>(HttpStatus.CREATED.value(), null, paciente);
-			return ResponseEntity.status(HttpStatus.CREATED).body(response);			
-		}			
+		return (pacienteServicio.exists(paciente.getId())) ?  ResponseUtil.badRequest("Ya existe un paciente.") : 
+			ResponseUtil.created(pacienteServicio.guardarPaciente(paciente));	
 	}
 	
 	@PutMapping	
@@ -113,12 +113,7 @@ public class PacienteController {
 	}
 	
 	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<APIResponse<Paciente>> handleConstrainViolationException(ConstraintViolationException ex){
-		List<String> errors = new ArrayList<>();
-		for(ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-			errors.add(violation.getMessage());
-		}
-		APIResponse<Paciente> response = new APIResponse<Paciente>(HttpStatus.BAD_REQUEST.value(), errors, null);
-		return ResponseEntity.badRequest().body(response);
+	public ResponseEntity<APIResponse<Object>> handleConstrainViolationException(ConstraintViolationException ex){
+		return ResponseUtil.handleConstraintException(ex);
 	}
 }

@@ -8,7 +8,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -20,28 +19,28 @@ public class Paciente {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
 	@NotBlank(message = "El nombre no puede estar vacío.")
 	@Size(max = 40, message = "El nombre no debe superar los 40 caracteres.")
 	private String nombre;
+	
 	@NotBlank(message = "El apellido no puede estar vacío.")
 	@Size(max = 40, message = "El apellido no debe superar los 40 caracteres.")
 	private String apellido;
+	
 	@NotBlank(message = "El dni no puede estar vacío.")
 	@Size(max = 12, message = "El dni no debe superar los 12 caracteres.")
 	private String dni;
+	
 	@NotBlank(message = "El domicilio no puede estar vacío.")
 	@Size(max = 60, message = "El domicilio no debe superar los 60 caracteres.")
 	private String domicilio;
+	
 	@NotNull(message = "La fecha y hora no pueden estar vacías.")
 	@Past(message = "La fecha y hora ingresadas ya sucedieron.")
 	private LocalDate fechaNacimiento;
-	@Min(value=1, message="El id del paciente debe ser mayor que 1.")
-	private Integer idMutual;
 	
-	@ManyToOne
-	@JoinColumn(name = "idTurno")
-	private Turno turno;
-	
+	//@Min(value=1, message="El id de la mutual debe ser mayor que 1.")
 	@ManyToOne
 	@JoinColumn(name = "mutualId")
 	private Mutual mutual;
@@ -82,12 +81,5 @@ public class Paciente {
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
-	public Integer getIdMutual() {
-		return idMutual;
-	}
-	public void setIdMutual(Integer idMutual) {
-		this.idMutual = idMutual;
-	}
-	
 	
 }
