@@ -29,19 +29,19 @@ public class EspecialidadController {
 	IEspecialidadService especialidadService;
 	
 	
-	//método GET para obtener el listado de todas las especialidades.
+	// método GET para obtener el listado de todas las especialidades.
 	@GetMapping
 	public ResponseEntity<APIResponse<List<Especialidad>>> mostrarTodasLasEspecialidades() {
 		
-		//declaramos una lista de especialidades
+		// Se declara una lista de objetos de tipo Especialidad y se obtienen todas las especialidades del servicio correspondiente.
 		List<Especialidad> especialidad = especialidadService.obtenerTodas();
 		
-		//evaluamos si el objeto especialidad tiene datos o no con un if
+		// se evalúa si la lista de objetos de tipo Especialidad está vacía utilizando un condicional if.
 		if(especialidad.isEmpty()) {
-		// si esta vacio, sin datos, va a mostrar un mensaje
+			// Si la lista está vacía, se devuelve un mensaje indicando que no se encontraron especialidades.
 			return ResponseUtil.notFound("No se encontraron especialidades");
 		}else {
-		// di hay datos, muestra el listado "especialidad"
+			// Si la lista contiene datos, se devuelve un ResponseEntity exitoso que contiene la lista de objetos de tipo Especialidad.
 			return ResponseUtil.success(especialidad);
 		}
 		
@@ -51,8 +51,8 @@ public class EspecialidadController {
 	@GetMapping("/{id}")
 	public ResponseEntity<APIResponse<Especialidad>> mostrarTipoEspecialidadPorId(@PathVariable("id") Integer id) {
 		
-		return (especialidadService.exists(id) ? ResponseUtil.badRequest("No se encontro la especialidad")
-				: ResponseUtil.success(especialidadService.obtenerPorId(id)));
+		return (especialidadService.exists(id) ? ResponseUtil.success(especialidadService.obtenerPorId(id))
+				: ResponseUtil.badRequest("No se encontro la especialidad"));
 	}
 	
 	
@@ -66,8 +66,8 @@ public class EspecialidadController {
 	
 	@PutMapping	
 	public ResponseEntity<APIResponse<Especialidad>> modificarEspecialidad(@RequestBody Especialidad especialidad) {
-	    return (especialidadService.exists(especialidad.getId())) ? ResponseUtil.badRequest("La especialidad no se puede modificar") 
-	       : ResponseUtil.success(especialidadService.guardar(especialidad));
+	    return (especialidadService.exists(especialidad.getId())) ?  ResponseUtil.success(especialidadService.guardar(especialidad))
+	       :ResponseUtil.badRequest("La especialidad no se puede modificar");
 	}
 	
 	
