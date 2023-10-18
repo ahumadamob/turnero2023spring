@@ -37,8 +37,7 @@ public class MutualController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<APIResponse<Mutual>> mostrarMutualPorId(@PathVariable("id") Integer id) {
-		Mutual mutual = mutualService.obtenerPorId(id);
-		return(mutualService.exists(id)) ? ResponseUtil.success(mutual)
+		return(mutualService.exists(id)) ? ResponseUtil.success(mutualService.obtenerPorId(id))
 		: ResponseUtil.badRequest("No se encontró la mutual, revise el parámetro");
 	}
 		
@@ -65,7 +64,6 @@ public class MutualController {
 		    }
 		}
 			
-	
 	
 	@ExceptionHandler(ConstraintViolationException.class)
 		public ResponseEntity<APIResponse<Object>> handleConstraintViolationException(ConstraintViolationException ex) {
