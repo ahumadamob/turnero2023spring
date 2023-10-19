@@ -54,7 +54,7 @@ public class TurnoController {
 		} else if (turno.getId()==null) {
 			return ResponseUtil.badRequest("No ingresaste el id de ningún turno para modificarlo.");
 		} else {
-			return ResponseUtil.badRequest("No existe un turno con id " + turno.getId().toString() + ".");
+			return ResponseUtil.notFound("No existe un turno con id " + turno.getId().toString() + ".");
 		}
 	}
 	
@@ -87,7 +87,7 @@ public class TurnoController {
 			turnoService.eliminar(id);
 			return ResponseUtil.success("El turno con id " + id.toString() + " ha sido eliminado.");
 		} else {
-			return ResponseUtil.badRequest("No existe un turno con id " + id.toString() + ".");
+			return ResponseUtil.notFound("No existe un turno con id " + id.toString() + ".");
 		}		
 	}
 	
