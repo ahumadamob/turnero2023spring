@@ -39,76 +39,45 @@ public class PacienteController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<APIResponse<Paciente>> mostrarPacientePorId(@PathVariable("id") Integer id) {
-		if(this.existe(id)) {
-			Paciente paciente = pacienteServicio.buscarPacientePorId(id);
-			APIResponse<Paciente> response = new APIResponse<Paciente>(HttpStatus.OK.value(), null, paciente);
-			return ResponseEntity.status(HttpStatus.OK).body(response);	
-		}else {
-			List<String> messages = new ArrayList<>();
-			messages.add("No se encontró la Paciente con id = " + id.toString());
-			messages.add("Revise nuevamente el parámetro");
-			APIResponse<Paciente> response = new APIResponse<Paciente>(HttpStatus.BAD_REQUEST.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
-		}
+		return (pacienteServicio.exists(id))
+				? ResponseUtil.success(pacienteServicio.buscarPacientePorId(id))
+				: ResponseUtil.notFound("No se encontró el paciente con id = " + id.toString() + ".");
 	
 	}
 	
 
-	/*
-	 *  El siguiente bloque maneja solicitudes POST para crear nuevos pacientes. Si ya existe un paciente con el mismo ID,
-	 *  se devuelve una respuesta de error con el código 400 (Bad Request). Si no existe un paciente con el mismo ID, se
-	 *  crea el nuevo paciente y se devuelve una respuesta con el código 201 (Created) que incluye el paciente creado.
-	 */
+	// Con la notación @PostMapping indicamos que el siguiente método recibirá solicitudes HTTP POST.
 	@PostMapping
+	
+	// El método llamado 'crearPaciente' recibe un objeto 'Paciente', el cual se incluirá en el cuerpo de la solicitud HTTP.
+	// Además, el método devuelve un 'ResponseEntity' (que contiene un objeto de tipo 'APIResponse') parametrizado con 'Paciente'.
 	public ResponseEntity<APIResponse<Paciente>> crearPaciente(@RequestBody Paciente paciente) {
+		
+		// Verificamos si existe un paciente en función de su ID, en caso de existir, devolvemos una respuesta de error,
+		// si aún no existe, lo guardamos en el método 'guardarPaciente' y devolvemos una respuesta existosa mediante
+		// el 'ResponseUtil.created(...)'.
 		return (pacienteServicio.exists(paciente.getId())) ?  ResponseUtil.badRequest("Ya existe un paciente.") : 
 			ResponseUtil.created(pacienteServicio.guardarPaciente(paciente));	
 	}
 	
 	@PutMapping	
 	public ResponseEntity<APIResponse<Paciente>> modificarPaciente(@RequestBody Paciente paciente) {
-		if(this.existe(paciente.getId())) {
-			pacienteServicio.guardarPaciente(paciente);
-			APIResponse<Paciente> response = new APIResponse<Paciente>(HttpStatus.OK.value(), null, paciente);
-			return ResponseEntity.status(HttpStatus.OK).body(response);
-		}else {
-			List<String> messages = new ArrayList<>();
-			messages.add("No existe un paciente con el ID especificado");
-			messages.add("Para crear una nueva utilice el verbo POST");
-			APIResponse<Paciente> response = new APIResponse<Paciente>(HttpStatus.BAD_REQUEST.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		if(pacienteServicio.exists(paciente.getId())) {
+			return ResponseUtil.created(pacienteServicio.guardarPaciente(paciente));
+		} else if (paciente.getId() == null) {
+			return ResponseUtil.badRequest("No ingresaste id de paciente para modificarlo.");
+		} else {
+			return ResponseUtil.badRequest("No existe un paciente con el id = " + paciente.getId().toString() + ".");
 		}
-
 	}
 	
 	@DeleteMapping("/{id}")	
-	public ResponseEntity<APIResponse<Paciente>> eliminarPaciente(@PathVariable("id") Integer id) {
-		if(this.existe(id)) {
+	public ResponseEntity<APIResponse<String>> eliminarPaciente(@PathVariable("id") Integer id) {
+		if(pacienteServicio.exists(id)) {
 			pacienteServicio.eliminarPaciente(id);
-			List<String> messages = new ArrayList<>();
-			messages.add("El paciente que figura en el cuerpo ha sido eliminada") ;			
-			APIResponse<Paciente> response = new APIResponse<Paciente>(HttpStatus.OK.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.OK).body(response);	
-		}else {
-			List<String> messages = new ArrayList<>();
-			messages.add("No existe un paciente con el ID = " + id.toString());
-			APIResponse<Paciente> response = new APIResponse<Paciente>(HttpStatus.BAD_REQUEST.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
-		}
-		
-	}
-	
-	
-	private boolean existe(Integer id) {
-		if(id == null) {
-			return false;
-		}else{
-			Paciente paciente = pacienteServicio.buscarPacientePorId(id);
-			if(paciente == null) {
-				return false;				
-			}else {
-				return true;
-			}
+			return ResponseUtil.success("El paciente con id = " + id.toString() + " ha sido eliminado.");
+		} else {
+			return ResponseUtil.badRequest("No existe un paciente con el id = " + id.toString() + ".");
 		}
 	}
 	
