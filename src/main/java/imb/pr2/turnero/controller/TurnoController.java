@@ -79,7 +79,7 @@ public class TurnoController {
 		Si existe, lo que hará es eliminar el registro a través de la función eliminar que creamos en el servicio de turno.
 		Además devolveremos como respuesta de la API un mensaje diciendo que el turno ha sido eliminado junto con un código 200.
 		Si no existe, entraremos en una estructura else que no eliminará ningun registro.
-		Solamente devolveremos como respuesta de la API un mensaje diciendo que no existe un turno con ese id junto a un código 400.
+		Solamente devolveremos como respuesta de la API un mensaje diciendo que no existe un turno con ese id junto a un código 404.
 		Todos los objetos ResponseEntity junto con el APIResponse determinado que se devuelven se crean a través de los métodos estáticos 
 		declarados en nuestra clase ResponseUtil que nos permite crear respuestas para nuestra API con un formato determinado.
 		 */
