@@ -11,7 +11,6 @@ import jakarta.validation.ConstraintViolationException;
 
 public class ResponseUtil {
 
-
     private ResponseUtil() {
         // Constructor privado para evitar instanciación
     }
