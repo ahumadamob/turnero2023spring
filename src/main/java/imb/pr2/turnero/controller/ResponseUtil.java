@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
-
 public class ResponseUtil {
 
     private ResponseUtil() {
@@ -55,4 +54,5 @@ public class ResponseUtil {
         messages.add(message);
         return messages;
     }
+
 }
