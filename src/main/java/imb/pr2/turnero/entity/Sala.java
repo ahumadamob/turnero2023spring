@@ -14,10 +14,14 @@ public class Sala {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	@NotBlank(message = "El nombre no puede estar vacío")
-	@Size(max = 20, message = "El nombre no debe superar los 10 caracteres")
+	@Size(max = 20, message = "El nombre no debe superar los 20 caracteres")
 	private	String nombre;
 	private boolean disponibles;
+	@NotBlank(message = "La ubicacion no puede estar vacío")
+	@Size(max = 30, message = "La ubicacion no debe superar los 30 caracteres")
 	private String ubicacion;
+	
+	
 	public Integer getId() {
 		return id;
 	}

@@ -25,8 +25,8 @@ public class EspecialidadServiceImplJpa implements IEspecialidadService {
 	}
 	
 	@Override
-	public void guardar(Especialidad especialidad) {
-		repo.save(especialidad);
+	public Especialidad guardar(Especialidad especialidad) {
+		return repo.save(especialidad);
 		
 	}
 
@@ -42,7 +42,7 @@ public class EspecialidadServiceImplJpa implements IEspecialidadService {
 	}
 	
 	public boolean exists (Integer id) {
-		return repo.existsById(id);
+		return (id == null)? false : repo.existsById(id);
 	}
 
 }
