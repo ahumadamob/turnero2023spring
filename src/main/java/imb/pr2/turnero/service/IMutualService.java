@@ -8,8 +8,8 @@ public interface IMutualService {
 
 	public List<Mutual> obtenerTodas();
 	public Mutual obtenerPorId(Integer id);
-	public void guardar(Mutual mutual);
-	boolean exists(Integer id);
+	public Mutual guardar(Mutual mutual);
+	public boolean exists(Integer id);
 	public void eliminar(Integer id);
 
 	
