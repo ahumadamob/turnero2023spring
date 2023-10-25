@@ -30,86 +30,50 @@ public class ProfesionalController {
 	IProfesionalService profesionalService;
 	
 	@GetMapping
-	public ResponseEntity<APIResponse<List<Profesional>>> buscarTodos() {		
-		APIResponse<List<Profesional>> response = new APIResponse<List<Profesional>>(200, null, profesionalService.buscar());
-		return ResponseEntity.status(HttpStatus.OK).body(response);	
+	public ResponseEntity<APIResponse<List<Profesional>>> mostrarTodosLosProfesionales() {
+		List<Profesional> profesional = profesionalService.buscar();
+		if(profesional.isEmpty()) {
+			return ResponseUtil.notFound("No se encontraron Profesionales");
+		}else {
+			return ResponseUtil.success(profesional);
+		}
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<APIResponse<Profesional>> buscarProfesionalPorId(@PathVariable("id") Integer id) {
-		if(profesionalService.exists(id)) {
-			Profesional profesional = profesionalService.buscarPorId(id);
-			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.OK.value(), null, profesional);
-			return ResponseEntity.status(HttpStatus.OK).body(response);	
-		}else {
-			List<String> messages = new ArrayList<>();
-			messages.add("No se encontró el Profesional con id = " + id.toString());
-			messages.add("Revise nuevamente el parámetro");
-			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.BAD_REQUEST.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
-		}
 	
+	// Esta es una anotacion que indica que responde a una solicitud http con un marcador de posicion (ID)
+	@GetMapping("/{id}")
+	// Este metodo recibe un parametro id que proviene de la url gracias al parametro @PathVariable("id")
+	public ResponseEntity<APIResponse<Profesional>> buscarProfesionalPorId(@PathVariable("id") Integer id) {
+		//En este ternario Primero se busca al profesional en la base de dato para ver si existe, si existe retorna al profesional que coincida con el id sino devuelve un msj 
+		return (profesionalService.exists(id) ? ResponseUtil.success(profesionalService.buscarPorId(id))
+				: ResponseUtil.notFound("No se encontro el profesional"));
 	}
 	
 	@PostMapping
 	public ResponseEntity<APIResponse<Profesional>> crearProfesional(@RequestBody Profesional profesional) {
-		if(profesionalService.exists(profesional.getId())) {
-			List<String> messages = new ArrayList<>();
-			messages.add("Ya existe un Profesional con el ID = " + profesional.getId().toString());
-			messages.add("Para actualizar utilice el verbo PUT");
-			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.BAD_REQUEST.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-		}else {
-			profesionalService.guardar(profesional);
-			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.CREATED.value(), null, profesional);
-			return ResponseEntity.status(HttpStatus.CREATED).body(response);			
-		}			
+		return (profesionalService.exists(profesional.getId()))? ResponseUtil.badRequest("Ya Existe un Profesor")
+				: ResponseUtil.created(profesionalService.guardar(profesional));			
 	}
 	
 	@PutMapping	
 	public ResponseEntity<APIResponse<Profesional>> modificarProfesional(@RequestBody Profesional profesional) {
-		if(profesionalService.exists(profesional.getId())) {
-			profesionalService.guardar(profesional);
-			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.OK.value(), null, profesional);
-			return ResponseEntity.status(HttpStatus.OK).body(response);
-		}else {
-			List<String> messages = new ArrayList<>();
-			messages.add("No existe un profesional con el ID especificado");
-			messages.add("Para crear una nueva utilice el verbo POST");
-			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.BAD_REQUEST.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-		}
-
+		return (profesionalService.exists(profesional.getId()))? ResponseUtil.created(profesionalService.guardar(profesional))
+				:ResponseUtil.notFound("No existe un profesional con el ID identificado");
 	}
 	
 	@DeleteMapping("/{id}")	
-	public ResponseEntity<APIResponse<Profesional>> eliminarProfesional(@PathVariable("id") Integer id) {
-		if(profesionalService.exists(id)) {
-			profesionalService.eliminar(id);
-			List<String> messages = new ArrayList<>();
-			messages.add("El Profesional que figura en el cuerpo ha sido eliminada") ;			
-			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.OK.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.OK).body(response);	
-		}else {
-			List<String> messages = new ArrayList<>();
-			messages.add("No existe un Profesional con el ID = " + id.toString());
-			APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.BAD_REQUEST.value(), messages, null);
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);			
-		}
-		
+	public ResponseEntity<APIResponse<String>> eliminarProfesional(@PathVariable("id") Integer id) {
+	    if(profesionalService.exists(id)){
+	    	profesionalService.eliminar(id);
+	        return ResponseUtil.success("El Profesional fue eliminado");
+	    }else {
+	        return ResponseUtil.badRequest("No existe una Profesional con el Id especificado");
+	    }
 	}
 	
-	
-	
-	
 	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<APIResponse<?>> handleConstraintViolationException(ConstraintViolationException ex){
-		List<String> errors = new ArrayList<>();
-		for(ConstraintViolation<?> violation : ex.getConstraintViolations()) {
-			errors.add(violation.getMessage());
-		}
-		APIResponse<Profesional> response = new APIResponse<Profesional>(HttpStatus.BAD_REQUEST.value(), errors, null);
-		return ResponseEntity.badRequest().body(response);
+	public ResponseEntity<APIResponse<Object>> handleConstraintViolationException(ConstraintViolationException ex){
+		return ResponseUtil.handleConstraintException(ex);
 	}
 
 }
