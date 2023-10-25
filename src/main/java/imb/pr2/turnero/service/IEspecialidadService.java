@@ -8,7 +8,7 @@ public interface IEspecialidadService {
 	
 	public List<Especialidad> obtenerTodas();
 	public Especialidad obtenerPorId(Integer id);
-	public void guardar(Especialidad especialidad);
+	public Especialidad guardar(Especialidad especialidad);
 	public void eliminar(Integer id);
 	public boolean exists (Integer id);
 	

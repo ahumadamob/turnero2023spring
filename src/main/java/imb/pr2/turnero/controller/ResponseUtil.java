@@ -9,13 +9,14 @@ import org.springframework.http.ResponseEntity;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 
+
 public class ResponseUtil {
 
     private ResponseUtil() {
         // Constructor privado para evitar instanciación
     }
 
-    public static <T> ResponseEntity<APIResponse<T>> success(T data) {
+  public static <T> ResponseEntity<APIResponse<T>> success(T data) {
         APIResponse<T> response = new APIResponse<>(HttpStatus.OK.value(), null, data);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -54,5 +55,5 @@ public class ResponseUtil {
         messages.add(message);
         return messages;
     }
-
 }
+
