@@ -28,15 +28,16 @@ public class MutualServiceImplJpa implements IMutualService {
     }
 
 	@Override
-	public void guardar(Mutual mutual) {
-		repo.save(mutual);
+	public Mutual guardar(Mutual mutual) {
+		return repo.save(mutual);
 	}
 
 	
 	@Override
 	public boolean exists(Integer id) {
-	return repo.existsById(id);
-	}
+		return (id==null)? false: repo.existsById(id);
+		
+	};
 
 	@Override
 	public void eliminar(Integer id) {

@@ -15,8 +15,8 @@ public class ResponseUtil {
     private ResponseUtil() {
         // Constructor privado para evitar instanciación
     }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-    public static <T> ResponseEntity<APIResponse<T>> success(T data) {
+
+  public static <T> ResponseEntity<APIResponse<T>> success(T data) {
         APIResponse<T> response = new APIResponse<>(HttpStatus.OK.value(), null, data);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
