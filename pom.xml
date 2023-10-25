@@ -40,11 +40,7 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>imb.progra</groupId>
-			<artifactId>arq</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

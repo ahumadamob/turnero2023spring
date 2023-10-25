@@ -72,7 +72,7 @@ public class TurnoController {
 	A su vez APIResponse puede llevar un código de estado, mensajes e información.
 	La anotación @PathVariable la utilizamos para tomar las variables ingresadas a través de la URL e ingresarlas por parámetros al método.
 	*/
-	public ResponseEntity<APIResponse<Turno>> eliminarTurno(@PathVariable("id") Integer id) {
+	public ResponseEntity<APIResponse<String>> eliminarTurno(@PathVariable("id") Integer id) {
 		/*
 		Dentro del cuerpo del método evaluaremos una condición a través de la función existe que creamos en los servicios de la entidad Turno.
 		Esta determina si existe o no un registro en la base de datos con el id que le pasamos por parámetros.
