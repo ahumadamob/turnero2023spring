@@ -40,6 +40,26 @@ public class SalaController {
 		
 	}
 	
+	@GetMapping("/disponibles")
+	public ResponseEntity<APIResponse<List<Sala>>>mostrarSalasDisponibles(){
+		List<Sala> salas = salaService.mostrarPorDisponibles(true);
+		if(salas.isEmpty()) {
+			return ResponseUtil.notFound("No se encontraron salas disponibles");
+		}else {
+			return ResponseUtil.success(salas);
+		}
+	}
+	
+	@GetMapping("/nodisponibles")
+	public ResponseEntity<APIResponse<List<Sala>>>mostrarSalasNoDisponibles(){
+		List<Sala> salas = salaService.mostrarPorDisponibles(false);
+		if(salas.isEmpty()) {
+			return ResponseUtil.notFound("No se encontraron salas NO disponibles");
+		}else {
+			return ResponseUtil.success(salas);
+		}
+	}	
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<APIResponse<Sala>> mostrarSalaPorId(@PathVariable("id") Integer id) {
 		if(this.existe(id)) {
@@ -67,6 +87,29 @@ public class SalaController {
 		}
 
 	}
+	@PutMapping("/habilitarsala/{id}")
+	public ResponseEntity<APIResponse<Sala>> habilitarSala(@PathVariable("id") Integer id){
+		if(salaService.exist(id)) {
+			Sala sala = salaService.mostrarPorId(id);
+			sala.setDisponibles(true);
+			salaService.guardar(sala);
+			return ResponseUtil.success(sala);
+		}else {
+			return ResponseUtil.badRequest("No existe la sala");
+		}
+	}
+	
+	@PutMapping("/deshabilitarsala/{id}")
+	public ResponseEntity<APIResponse<Sala>> deshabilitarSala(@PathVariable("id") Integer id){
+		if(salaService.exist(id)) {
+			Sala sala = salaService.mostrarPorId(id);
+			sala.setDisponibles(false);
+			salaService.guardar(sala);
+			return ResponseUtil.success(sala);
+		}else {
+			return ResponseUtil.badRequest("No existe la sala");
+		}
+	}	
 	
 	@DeleteMapping("/{id}")	
 	public ResponseEntity<APIResponse<String>> eliminarSala(@PathVariable("id") Integer id) {
@@ -77,6 +120,20 @@ public class SalaController {
 	        return ResponseUtil.badRequest("No existe una sala con el Id especificado");
 	    }
 	
+	}
+	@DeleteMapping("/eliminardeshabilitada/{id}")
+	public ResponseEntity<APIResponse<String>> eliminarSalaSoloDeshabilitada(@PathVariable("id") Integer id){
+		if(salaService.exist(id)) {
+			Sala sala = salaService.mostrarPorId(id);
+			if(sala.isDisponibles() == true) {
+				return ResponseUtil.notFound("Esta sala no se puede eliminar porque esta Habilitada");
+			}else {
+		    	salaService.eliminar(id);
+		        return ResponseUtil.success("La sala fue elimada con exito");			
+			}
+		}else {
+			return ResponseUtil.badRequest("No existe una sala con el Id especificado");
+		}
 	}
 	
 	

@@ -46,4 +46,9 @@ public class SalaServiceImplJpa implements ISalaService {
 		return optional.orElse(null);		
 	}
 
+	@Override
+	public List<Sala> mostrarPorDisponibles(boolean disponible) {
+		return repo.findByDisponibles(disponible);
+	}
+
 }

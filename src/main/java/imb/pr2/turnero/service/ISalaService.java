@@ -10,5 +10,6 @@ public interface ISalaService {
 	public void eliminar(Integer id);
 	public List<Sala> mostrarTodos();
 	public boolean exist(Integer id);
+	public List<Sala>mostrarPorDisponibles(boolean disponible);
 	
 }
