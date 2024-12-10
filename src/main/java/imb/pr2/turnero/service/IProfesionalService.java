@@ -10,5 +10,6 @@ public interface IProfesionalService {
 	public Profesional guardar(Profesional profesional);
 	public void eliminar(Integer id);
 	public boolean exists(Integer id);
+	public List<Profesional> buscarNumeroLicencia();
 }
 

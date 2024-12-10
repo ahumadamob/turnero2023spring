@@ -8,6 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -28,6 +29,9 @@ public class Profesional {
 	@OneToOne
 	@JoinColumn(name="especialidadId")
 	private Especialidad especialidad;
+
+	@NotNull(message = "El número de licencia no puede estar vacío.")
+	private Integer numeroLicencia;
 	
 	public Integer getId() {
 		return id;
@@ -53,7 +57,12 @@ public class Profesional {
 	public void setEspecialidad(Especialidad especialidad) {
 		this.especialidad = especialidad;
 	}
-	
+	public Integer getNumeroLicencia() {
+		return numeroLicencia;
+	}
+	public void setNumeroLicencia(Integer numeroLicencia) {
+		this.numeroLicencia = numeroLicencia;
+	}
 
 	
 }

@@ -48,4 +48,11 @@ public class ProfesionalServiceImplJpa implements IProfesionalService {
 		return(id == null)? false : repo.existsById(id);
 	}
 
+	@Override
+	public List<Profesional> buscarNumeroLicencia() {
+		return repo.findByNumeroLicencia(null);
+	}
+
+	
+
 }
