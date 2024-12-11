@@ -55,6 +55,13 @@ public class ProfesionalController {
 				: ResponseUtil.created(profesionalService.guardar(profesional));			
 	}
 	
+	@PostMapping("/api/v1/profesional")
+	public ResponseEntity<APIResponse<Profesional>> modificarNumeroLicencia(@RequestBody Profesional profesional) {
+		if (profesional.getNumeroLicencia() == null) {
+				return ResponseUtil.badRequest("El número de licencia no puede estar vacío.");
+		} return ResponseUtil.created(profesionalService.guardar(profesional));	
+	}
+
 	@PutMapping	
 	public ResponseEntity<APIResponse<Profesional>> modificarProfesional(@RequestBody Profesional profesional) {
 		return (profesionalService.exists(profesional.getId()))? ResponseUtil.created(profesionalService.guardar(profesional))

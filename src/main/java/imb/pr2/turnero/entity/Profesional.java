@@ -28,6 +28,9 @@ public class Profesional {
 	@OneToOne
 	@JoinColumn(name="especialidadId")
 	private Especialidad especialidad;
+
+	private Integer numeroLicencia;
+
 	
 	public Integer getId() {
 		return id;
@@ -53,7 +56,12 @@ public class Profesional {
 	public void setEspecialidad(Especialidad especialidad) {
 		this.especialidad = especialidad;
 	}
-	
+	public Integer getNumeroLicencia() {
+		return numeroLicencia;
+	}
+	public void setNumeroLicencia(Integer numeroLicencia) {
+		this.numeroLicencia = numeroLicencia;
+	}
 
 	
 }
