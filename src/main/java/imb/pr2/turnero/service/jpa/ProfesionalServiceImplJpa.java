@@ -49,10 +49,10 @@ public class ProfesionalServiceImplJpa implements IProfesionalService {
 	}
 
 	@Override
-	public List<Profesional> buscarNumeroLicencia() {
-		return repo.findByNumeroLicencia(null);
+	public List<Profesional> buscarPorNumeroLicencia(Integer numeroLicencia) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'buscarPorNumeroLicencia'");
 	}
 
 	
-
 }
